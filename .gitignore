@@ -1,0 +1,13 @@
+blib
+_build
+Makefile
+inc
+Makefile
+META.yml
+pm_to_blib
+.project
+.settings
+MANIFEST.bak
+Makefile.old
+Business-UPS-Tracking-*
+cover_db
