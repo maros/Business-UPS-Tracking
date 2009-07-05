@@ -11,6 +11,7 @@ lib/Business/UPS/Tracking.pm
 lib/Business/UPS/Tracking/Element/Activity.pm
 lib/Business/UPS/Tracking/Element/Address.pm
 lib/Business/UPS/Tracking/Element/Message.pm
+lib/Business/UPS/Tracking/Element/Package.pm
 lib/Business/UPS/Tracking/Element/ReferenceNumber.pm
 lib/Business/UPS/Tracking/Element/Weight.pm
 lib/Business/UPS/Tracking/Request.pm
@@ -27,6 +28,7 @@ t/01_load.t
 t/02_basic.t
 t/03_simplerequest.t
 t/04_exceptions.t
+t/05_extended.t
 t/testlib.pm
 xt/perlcritic.t
 xt/pod.t
