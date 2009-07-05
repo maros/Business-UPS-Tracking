@@ -45,10 +45,9 @@ Parsed xml document. L<XML::LibXML::Document> object
 
 =head2 shipment
 
-Array reference of shipments.
-
+Array reference of shipments in the response (
 L<Business::UPS::Tracking::Shipment::SmallPackage> or 
-L<Business::UPS::Tracking::Shipment::Freight> object
+L<Business::UPS::Tracking::Shipment::Freight> objects)
 
 =head2 CustomerContext
 
@@ -68,10 +67,10 @@ has 'xml' => (
     isa      => 'XMLDocument',
 );
 has 'shipment' => (
-    is       => 'ro',
+    is       => 'rw',
     isa      => 'ArrayRef[Business::UPS::Tracking::Shipment]',
-    lazy     => 1,
-    builder  => '_build_shipment',
+    #lazy     => 1,
+    #builder  => '_build_shipment',
     #handles  => \&_handle_shipment,
 );
 has 'CustomerContext' => (
@@ -81,18 +80,27 @@ has 'CustomerContext' => (
     builder  => '_build_CustomerContext',
 );
 
-sub _build_shipment {
+sub BUILD {
     my ($self) = @_;
 
     my $xml = $self->xml;
     my $response_status
         = $xml->findvalue('/TrackResponse/Response/ResponseStatusCode');
 
+    # LOGGER            
+#    use Path::Class;
+#    my $filename = $self->request->TrackingNumber || $self->request->ReferenceNumber;
+#    my $file = Path::Class::File->new('t','xmlresponse',$filename); # Same thing
+#    unless (-e $file->stringify) {
+#        $xml->toFile($file->stringify,1);
+#    }
+    # LOGGER
+
     Business::UPS::Tracking::X::XML->throw('/TrackResponse/ResponseStatusCode missing')
         unless defined $response_status;
 
     # Check for error
-    unless ($response_status) {
+    if ($response_status == 0) {
         Business::UPS::Tracking::X::UPS->throw(
             severity    => $xml->findvalue('/TrackResponse/Response/Error/ErrorSeverity'),
             code        => $xml->findvalue('/TrackResponse/Response/Error/ErrorCode'),
@@ -128,7 +136,7 @@ sub _build_shipment {
         );
     }
 
-    return $shipment_return;
+    $self->shipment($shipment_return);
 }
 
 sub _build_CustomerContext {
