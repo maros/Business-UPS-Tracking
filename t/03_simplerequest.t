@@ -1,12 +1,13 @@
 #!perl
 
 use Test::NoWarnings;
-use Test::More tests => 47 + 1;
+use Test::More tests => 48 + 1;
 
 use lib qw(t/);
 use testlib;
 
 diag(<<NOTE
+
 ##############################################################################
 # ATTENTION!                                                                 #
 # The following tests require a connection to the UPS online tracking        #
@@ -38,30 +39,33 @@ is($shipment->ShipToAddress->StateProvinceCode,'GA','Shipper address province is
 is($shipment->ShipToAddress->CountryCode,'US','Shipper address country code is ok');
 is($shipment->ServiceCode,'002','Service code is ok');
 is($shipment->ServiceDescription,'2ND DAY AIR','Service description is ok');
-is($shipment->ShipmentReferenceNumber,'LINE4AND115','Reference number print is ok');
-isa_ok($shipment->ShipmentReferenceNumber,'Business::UPS::Tracking::Element::ReferenceNumber');
-is($shipment->ShipmentReferenceNumber->Value,'LINE4AND115','Reference number is ok');
-is($shipment->ShipmentReferenceNumber->Code,'01','Reference number is ok');
-is($shipment->ShipmentReferenceNumber->Description,'Unspecified','Reference number is ok');
+is($shipment->ReferenceNumber,'LINE4AND115','Reference number print is ok');
+isa_ok($shipment->ReferenceNumber,'Business::UPS::Tracking::Element::ReferenceNumber');
+is($shipment->ReferenceNumber->Value,'LINE4AND115','Reference number is ok');
+is($shipment->ReferenceNumber->Code,'01','Reference number is ok');
+is($shipment->ReferenceNumber->Description,'Unspecified','Reference number is ok');
 is($shipment->ShipmentIdentificationNumber,'1Z12345E0291980793','Shipment identification number is ok');
 isa_ok($shipment->PickupDate,'DateTime');
 is($shipment->PickupDate->ymd('.'),'1999.06.08','PickupDate is ok');
-is($shipment->TrackingNumber,'1Z12345E0291980793','Tracking number is ok');
-isa_ok($shipment->PackageWeight,'Business::UPS::Tracking::Element::Weight');
-is($shipment->PackageWeight->UnitOfMeasurementCode,'LBS','Package weight unit is ok');
-is($shipment->PackageWeight->Weight,'5.00','Package weight is ok');
-is($shipment->PackageWeight,'5.00 LBS','Package weight print is ok');
-isa_ok($shipment->ReferenceNumber,'ARRAY');
-my $reference1 = $shipment->ReferenceNumber->[0];
-my $reference2 = $shipment->ReferenceNumber->[1];
+
+isa_ok($shipment->Package,'ARRAY');
+my $package = $shipment->Package->[0];
+is($package->TrackingNumber,'1Z12345E0291980793','Tracking number is ok');
+isa_ok($package->PackageWeight,'Business::UPS::Tracking::Element::Weight');
+is($package->PackageWeight->UnitOfMeasurementCode,'LBS','Package weight unit is ok');
+is($package->PackageWeight->Weight,'5.00','Package weight is ok');
+is($package->PackageWeight,'5.00 LBS','Package weight print is ok');
+isa_ok($package->ReferenceNumber,'ARRAY');
+my $reference1 = $package->ReferenceNumber->[0];
+my $reference2 = $package->ReferenceNumber->[1];
 isa_ok($reference1,'Business::UPS::Tracking::Element::ReferenceNumber');
 isa_ok($reference2,'Business::UPS::Tracking::Element::ReferenceNumber');
 is($reference1,'LINE4AND115','Reference number 1 print is ok');
 is($reference2->Code,'08','Reference number 2 code is ok');
 is($reference2->Value,'LJ67Y5','Reference number 2 value is ok');
-isa_ok($shipment->Activity,'ARRAY');
-my $activity1 = $shipment->Activity->[0];
-my $activity2 = $shipment->Activity->[1];
+isa_ok($package->Activity,'ARRAY');
+my $activity1 = $package->Activity->[0];
+my $activity2 = $package->Activity->[1];
 isa_ok($activity1,'Business::UPS::Tracking::Element::Activity');
 isa_ok($activity2,'Business::UPS::Tracking::Element::Activity');
 isa_ok($activity1->ActivityLocationAddress,'Business::UPS::Tracking::Element::Address');

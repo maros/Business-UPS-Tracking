@@ -1,6 +1,6 @@
 #!perl -T
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 use_ok( 'Business::UPS::Tracking' );
 use_ok( 'Business::UPS::Tracking::Utils' );
@@ -13,3 +13,4 @@ use_ok( 'Business::UPS::Tracking::Element::Activity' );
 use_ok( 'Business::UPS::Tracking::Element::Address' );
 use_ok( 'Business::UPS::Tracking::Element::Weight' );
 use_ok( 'Business::UPS::Tracking::Element::ReferenceNumber' );
+use_ok( 'Business::UPS::Tracking::Element::Package' );

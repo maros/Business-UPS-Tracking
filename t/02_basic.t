@@ -7,16 +7,16 @@ use lib qw(t/);
 use testlib;
 
 my $tracking = Business::UPS::Tracking->new(
-    license  => 'license',
-    username => 'username',
-    password => 'password',
+    AccessLicenseNumber  => 'license',
+    UserId => 'username',
+    Password => 'password',
 );
 
 isa_ok( $tracking, 'Business::UPS::Tracking' );
 is( $tracking->url, 'https://wwwcie.ups.com/ups.app/xml/Track', 'Check url' );
-is( $tracking->license,  'license',  'Check license accessor' );
-is( $tracking->username, 'username', 'Check username accessor' );
-is( $tracking->password, 'password', 'Check password accessor' );
+is( $tracking->AccessLicenseNumber,  'license',  'Check license accessor' );
+is( $tracking->UserId, 'username', 'Check username accessor' );
+is( $tracking->Password, 'password', 'Check password accessor' );
 isa_ok( $tracking->_ua, 'LWP::UserAgent' );
 
 my $ua = LWP::UserAgent->new( agent => "TEST", );
