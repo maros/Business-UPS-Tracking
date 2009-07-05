@@ -9,8 +9,9 @@ use LWP::UserAgent;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Request;
 
+use version;
 use vars qw($VERSION);
-$VERSION = '1.00';
+$VERSION = version->new('1.00');
 
 =encoding utf8
 
