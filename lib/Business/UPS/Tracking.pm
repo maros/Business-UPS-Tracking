@@ -53,14 +53,54 @@ Business::UPS::Tracking - Interface to UPS Tracking webservice
 
 =head2 Class structure
 
-TODO
+                     .-----------------------------------.
+                     |     Business::UPS::Tracking       |
+                     '-----------------------------------'
+                                     ^
+                                  HAS ONE 
+                                     |
+                     .-----------------------------------.
+                     |         B::U::T::Request          |
+                     '-----------------------------------'
+                                     ^
+                                  HAS ONE
+                                     |
+                     .-----------------------------------.
+                     |         B::U::T::Response         |
+                     '-----------------------------------'
+                                     |
+                                  HAS MANY
+                                     v
+                     .-----------------------------------.
+                     |         B::U::T::Shipment         |
+                     '-----------------------------------'
+                         ^                           ^
+                        ISA                         ISA
+                         |                           |
+   .---------------------------------. .-----------------------------------.
+   |    B::U::T::Shipment::Freight   | |  B::U::T::Shipment::Smallpackage  |
+   |---------------------------------| |-----------------------------------|
+   | Freight shipment type           | | Small package shipment type       |
+   | Not yet implemented             | '-----------------------------------'
+   '---------------------------------'               |
+                                                  HAS MANY
+                                                     v
+                                      .-----------------------------------.
+                                      |     B::U::T::Element::Package     |
+                                      '-----------------------------------'
+                                                     |
+                                                  HAS MANY
+                                                     v
+                                      .-----------------------------------.
+                                      |    B::U::T::Element::Activity     |
+                                      '-----------------------------------'
 
 =head2 Exception Handling
 
-If this go wrong Business::UPS::Tracking throws an exception. Exceptions are
-allways L<Exception::Class> object which contain stuctured informations about
-the error. Please refer to the synopsis or L<Exception::Class> documentation
-for documentation how to catch and rethrow exeptions.
+If anythis goes wrong Business::UPS::Tracking throws an exception. Exceptions 
+are allways L<Exception::Class> object which contain stuctured information
+about the error. Please refer to the synopsis or L<Exception::Class> 
+documentation for documentation how to catch and rethrow exeptions.
 
 The following exception classes are defined:
 
@@ -72,7 +112,7 @@ Basic exception class. All other exception classes inherit from this class.
 
 =item * Business::UPS::Tracking::X::HTTP
 
-Some HTTP error. The object provides additional parameters:
+HTTP error. The object provides additional parameters:
 
 =over
 
@@ -104,6 +144,19 @@ XML parser or schema error.
 
 =back
 
+=head2 Accessor / method nameing
+
+The nameing of the methods and accessors tries to stick close to the names
+used by the UPS webservice. All accessors containg uppercase letters access
+xml data. Lowercase-only accessors and methods are used for utility 
+functions.
+
+=head2 UPS license
+
+In order to use this module you need to obtain a "Tracking WebService" 
+license key. See L<http://www.ups.com/e_comm_access/gettools_index> for more
+inforation.
+
 =head1 METHODS
 
 =head2 new 
@@ -132,15 +185,15 @@ executes it, returning a L<Business::UPS::Tracking::Response> object.
 
 =head1 ACCESSORS
 
-=head2 license
+=head2 AccessLicenseNumber
 
 UPS tracking service access license number
 
-=head2 username
+=head2 UserId
 
 UPS account username
 
-=head2 password
+=head2 Password
 
 UPS account password
 
@@ -164,17 +217,17 @@ Automatically generated
 
 =cut
 
-has 'license' => (
+has 'AccessLicenseNumber' => (
     is       => 'rw',
     required => 1,
     isa      => 'Str',
 );
-has 'username' => (
+has 'UserId' => (
     is       => 'rw',
     required => 1,
     isa      => 'Str',
 );
-has 'password' => (
+has 'Password' => (
     is       => 'rw',
     required => 1,
     isa      => 'Str',
@@ -210,9 +263,9 @@ sub _build_ua {
 sub access_request {
     my ($self) = @_;
 
-    my $license = Business::UPS::Tracking::Utils::escape_xml($self->license);
-    my $username = Business::UPS::Tracking::Utils::escape_xml($self->username);
-    my $password = Business::UPS::Tracking::Utils::escape_xml($self->password);
+    my $license = Business::UPS::Tracking::Utils::escape_xml($self->AccessLicenseNumber);
+    my $username = Business::UPS::Tracking::Utils::escape_xml($self->UserId);
+    my $password = Business::UPS::Tracking::Utils::escape_xml($self->Password);
     
     return <<ACR
 <?xml version="1.0"?>
@@ -259,6 +312,7 @@ your report as I make changes.
 This module was written for Revdev L<http://www.revdev.at>, a nice litte 
 software company I run with Koki and Domm (L<http://search.cpan.org/~domm/>).
 
+
 =head1 COPYRIGHT
 
 Business::UPS::Tracking is Copyright (c) 2009 Maroš Kollár.
@@ -270,6 +324,11 @@ The full text of the license can be found in the LICENSE file included with
 this module.
 
 =head1 SEE ALSO
+
+Download the UPS ""OnLine® Tools Tracking Developer Guide"" and get a
+developer key at L<http://www.ups.com/e_comm_access/gettools_index?loc=en_US>. 
+Please check the "Developer Guide" for more detailed documentation on the
+various fields.
 
 The L<WebService::UPS::TrackRequest> provides an alternative simpler 
 implementation.
