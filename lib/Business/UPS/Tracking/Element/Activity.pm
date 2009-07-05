@@ -6,6 +6,7 @@ use Moose;
 use 5.0100;
 
 use Business::UPS::Tracking::Utils;
+use Business::UPS::Tracking::Element::Activity;
 
 =encoding utf8
 
@@ -163,11 +164,59 @@ sub _build_SignedForByName {
 
 =head1 METHODS
 
+=head2 Status
+
+Translates the L<StatusTypeCode> to a short description. Can return
+
+=over
+
+=item * In Transit
+
+=item * Delivered
+
+=item * Exeption
+
+=item * Pickup
+
+=item * Manifest Pickup
+
+=item * Unknown
+
+=back
+
+=cut
+
+sub Status {
+    my ($self) = @_;
+    
+    given ($self->StatusTypeCode) {
+        when ('I') {
+            return 'In Transit';
+        }
+        when ('D') {
+            return 'Delivered';
+        }
+        when ('X') {
+            return 'Exeption';
+        }
+        when ('P') {
+            return 'Pickup';
+        }
+        when ('M') {
+            return 'Manifest Pickup';
+        }
+        default {
+            return 'Unknown';
+        }
+    }
+}
+
 =head2 meta
 
 Moose meta method
 
 =cut
+
 
 __PACKAGE__->meta->make_immutable;
 
