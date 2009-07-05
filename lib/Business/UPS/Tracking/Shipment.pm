@@ -7,6 +7,68 @@ use 5.0100;
 
 use Business::UPS::Tracking::Utils;
 
+=encoding utf8
+
+=head1 NAME
+
+Business::UPS::Tracking::Shipment - Base class for shipments
+
+=head1 DESCRIPTION
+
+This class is a base class for 
+L<Business::UPS::Tracking::Shipment::SmallPackage> and 
+L<Business::UPS::Tracking::Shipment::Freight>. Usually it is created 
+automatically from a L<Business::UPS::Tracking::Response> object. It provides
+accessors common to all shipment types.
+
+=head1 ACCESSORS
+
+=head2 xml
+
+L<XML::LibXML::Node> node of the shipment.
+
+=head2 ScheduledDelivery
+
+Scheduled delivery date and time. Returns a L<DateTime> object.
+
+=head2 PickupDate
+
+Pickup date. Returns a L<DateTime> object.
+
+=head2 ShipperNumber
+
+Shipper UPS customer number.
+
+=head2 ShipperAddress
+
+Shipper address. Returns a L<Business::UPS::Tracking::Element::Address>
+object.
+
+=head2 ShipmentWeight
+
+Shipment weight. Returns a L<Business::UPS::Tracking::Element::Weight>
+object.
+
+=head2 ShipToAddress
+
+Shipment destination address. Returns a 
+L<Business::UPS::Tracking::Element::Address> object.
+
+=head2 ServiceCode
+
+UPS service code. (eg. '002' for 2nd day air)
+
+=head2 ServiceDescription
+
+UPS service code description (eg. '2ND DAY AIR')
+
+=head2 ShipmentReferenceNumber
+
+Reference number for the whole shipment as provided by the shipper. Returns a 
+L<Business::UPS::Tracking::Element::ReferenceNumber> object.
+
+=cut
+
 has 'xml' => (
     is      => 'ro',
     required=> 1,
@@ -59,14 +121,18 @@ has 'ServiceDescription' => (
     lazy    => 1,
     builder => '_build_ServiceDescription',
 );
-has 'ShipmentReferenceNumber' => (
+has 'ReferenceNumber' => (
     is      => 'ro',
     isa     => 'Business::UPS::Tracking::Element::ReferenceNumber',
     lazy    => 1,
-    builder => '_build_ShipmentReferenceNumber',
+    builder => '_build_ReferenceNumber',
 );
-
-
+has 'ShipmentIdentificationNumber' => (
+    is      => 'ro',
+    isa     => 'Str',
+    lazy    => 1,
+    builder => '_build_ShipmentIdentificationNumber',
+);
 
 sub _build_ScheduledDelivery {
     my ($self) = @_;
@@ -129,14 +195,22 @@ sub _build_ServiceDescription {
     return $self->xml->findvalue('Service/Description');
 }
 
-
-sub _build_ShipmentReferenceNumber {
+sub _build_ReferenceNumber {
     my ($self) = @_;
     
     return Business::UPS::Tracking::Utils::build_referencenumber($self->xml,'ReferenceNumber');
 }
 
+sub _build_ShipmentIdentificationNumber {
+    my ($self) = @_;
 
+    return $self->xml->findvalue('ShipmentIdentificationNumber')
+        || undef;
+}
+
+sub ShipmentType {
+    Business::UPS::Tracking::X->throw("__PACKAGE__ is an abstract class")
+}
 
 __PACKAGE__->meta->make_immutable;
 
