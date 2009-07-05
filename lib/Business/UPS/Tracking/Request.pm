@@ -281,10 +281,25 @@ sub run {
         );
         # Success
         if ( $response->is_success ) {
-            return Business::UPS::Tracking::Response->new(
-                request => $self,
-                xml     => $response->content,
-            );
+            my $return = eval {
+                return Business::UPS::Tracking::Response->new(
+                    request => $self,
+                    xml     => $response->content,
+                );
+            };
+            unless (defined $return 
+                && ref $return eq 'Business::UPS::Tracking::Response') {
+                my $e = $@;
+                if (defined $e 
+                    && ref $e 
+                    && $e->isa('Business::UPS::Tracking::X')) {
+                    $e->rethrow();
+                } else {
+                    Business::UPS::Tracking::X->throw($e || 'Unknown error');
+                }
+            } else {
+                return $return;
+            }
         }
         # Failed but try again
         elsif ( $count < $tracking->retry_http ) {

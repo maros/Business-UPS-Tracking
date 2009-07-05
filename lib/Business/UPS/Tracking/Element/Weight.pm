@@ -39,7 +39,7 @@ Weight value (e.g. '5.50')
 
 =cut
 
-use overload '""' => \&print, fallback => 1;
+use overload '""' => \&_print, fallback => 1;
 
 has 'xml' => (
     is       => 'rw',
@@ -70,18 +70,12 @@ sub _build_weight {
     return;
 }
 
-=head1 METHODS
-
-=head2 print
-
-Returns the value and the unit (e.g. '5.50 LBS')
-
-=cut
-
-sub print {
+sub _print {
     my ($self) = @_;
     return $self->Weight.' '.$self->UnitOfMeasurementCode;
 }
+
+=head1 METHODS
 
 =head2 meta
 
