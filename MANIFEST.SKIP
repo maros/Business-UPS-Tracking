@@ -1,6 +1,7 @@
 # Module Specific Stuff
 meta/*
 Business-UPS-Tracking-*.*.tar.gz
+t/xmlresponse/*
 
 # Eclipse stuff
 .includepath
