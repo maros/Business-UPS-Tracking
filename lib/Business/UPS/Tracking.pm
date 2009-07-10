@@ -17,14 +17,14 @@ $VERSION = version->new('1.00');
 
 =head1 NAME
 
-Business::UPS::Tracking - Interface to UPS Tracking webservice
+Business::UPS::Tracking - Interface to the UPS tracking webservice
 
 =head1 SYNOPSIS
 
   use Business::UPS::Tracking;
   
   my $tracking = Business::UPS::Tracking->new(
-    license  => '',
+    license  => '1CFFED5A5E91B17',
     username => 'myupsuser',
     password => 'secret',
   );

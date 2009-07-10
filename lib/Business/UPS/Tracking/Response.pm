@@ -12,11 +12,13 @@ use Business::UPS::Tracking::Shipment::SmallPackage;
 use XML::LibXML;
 use DateTime;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME
 
-Business::UPS::Tracking::Response - A UPS tracking response
+Business::UPS::Tracking::Response - A response from the UPS webservice 
 
 =head1 SYNOPSIS
 

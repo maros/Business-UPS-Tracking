@@ -8,11 +8,13 @@ use 5.0100;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME
 
-Business::UPS::Tracking::Element::Address - A small freight package activity
+Business::UPS::Tracking::Element::Activity - A small freight package activity
   
 =head1 DESCRIPTION
 

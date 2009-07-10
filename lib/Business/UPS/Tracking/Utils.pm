@@ -5,9 +5,12 @@ use utf8;
 use Moose;
 use 5.0100;
 
+use Business::UPS::Tracking;
 use Business::UPS::Tracking::Element::Address;
 use Business::UPS::Tracking::Element::Weight;
 use Business::UPS::Tracking::Element::ReferenceNumber;
+
+our $VERSION = $Business::UPS::Tracking::VERISON;
 
 =encoding utf8
 

@@ -9,17 +9,19 @@ extends 'Business::UPS::Tracking::Shipment';
 
 use Business::UPS::Tracking::Element::Package;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME
 
-Business::UPS::Tracking::Shipment::SmallPackage - A UPS small package shipment
+Business::UPS::Tracking::Shipment::SmallPackage - A small package shipment
 
 =head1 DESCRIPTION
 
 
 This class represents an small package shipment and extends 
-C<Business::UPS::Tracking::Shipment>. Usually it is created 
+L<Business::UPS::Tracking::Shipment>. Usually it is created 
 automatically from a L<Business::UPS::Tracking::Response> object.
 
 =head1 ACCESSORS

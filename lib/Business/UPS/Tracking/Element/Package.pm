@@ -8,6 +8,8 @@ use 5.0100;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME
@@ -27,21 +29,19 @@ Original L<XML::LibXML::Node> node.
 
 =head2 Activity 
 
-Arrayref of C<Business::UPS::Tracking::Element::Activity> objects
+Arrayref of L<Business::UPS::Tracking::Element::Activity> objects
 ordered by activity date and time. Check the first element in the list for the
-most recent status.
-
-Arrayref of 
+most recent status. 
 
 =head2 RescheduledDelivery
 
-Date and time of rescheduled delivery attempt. Retuens a L<DateTime> object.
+Date and time of rescheduled delivery attempt. Returns a L<DateTime> object.
 
-Returns a C<Business::UPS::Tracking::Element::Address> object.
+Returns a L<Business::UPS::Tracking::Element::Address> object.
 
 =head2 ReturnToAddress
 
-Returns a C<Business::UPS::Tracking::Element::Address> object.
+Returns a L<Business::UPS::Tracking::Element::Address> object.
 
 =head2 SignatureRequired
 
@@ -50,7 +50,7 @@ required).
 
 =head2 PackageWeight
 
-Package weight. Returns a C<Business::UPS::Tracking::Element::Weight> object.
+Package weight. Returns a L<Business::UPS::Tracking::Element::Weight> object.
 
 =head2 TrackingNumber
 
@@ -58,7 +58,7 @@ UPS tracking number.
 
 =head2 RerouteAddress
 
-Returns a C<Business::UPS::Tracking::Element::Address> object.
+Returns a L<Business::UPS::Tracking::Element::Address> object.
 
 =head1 METHODS
 

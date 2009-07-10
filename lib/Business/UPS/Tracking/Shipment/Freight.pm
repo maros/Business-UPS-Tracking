@@ -7,11 +7,13 @@ use 5.0100;
 
 extends 'Business::UPS::Tracking::Shipment';
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME
 
-Business::UPS::Tracking::Shipment::Freight - A UPS freight shipment
+Business::UPS::Tracking::Shipment::Freight - A freight shipment
 
 =head1 DESCRIPTION
 
@@ -20,7 +22,7 @@ work with freight shipments you still can access the xml tree via
 C<$shipment-E<gt>xml>.
 
 This class represents an freight shipment and extends 
-C<Business::UPS::Tracking::Shipment>. Usually it is created 
+L<Business::UPS::Tracking::Shipment>. Usually it is created 
 automatically from a L<Business::UPS::Tracking::Response> object.
 
 =head1 ACCESSORS

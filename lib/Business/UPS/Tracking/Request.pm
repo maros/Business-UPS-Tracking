@@ -12,11 +12,13 @@ use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Response;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME
 
-Business::UPS::Tracking::Request - A UPS tracking request
+Business::UPS::Tracking::Request - A tracking request
 
 =head1 SYNOPSIS
 

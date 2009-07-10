@@ -7,6 +7,8 @@ use 5.0100;
 
 use Business::UPS::Tracking::Utils;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 =encoding utf8
 
 =head1 NAME

@@ -5,8 +5,9 @@ use utf8;
 use Moose;
 use 5.0100;
 
-
 use Business::UPS::Tracking::Utils;
+
+our $VERSION = $Business::UPS::Tracking::VERISON;
 
 =encoding utf8
 
@@ -17,7 +18,9 @@ Business::UPS::Tracking::Element::Weight - A shipment or package weight
 =head1 DESCRIPTION
 
 This class represents a declaration of weight. Usually it is created 
-automatically from a L<Business::UPS::Tracking::Shipment> object.
+automatically from a L<Business::UPS::Tracking::Shipment> object. 
+
+This module uses overload for stringification if called in string context.
 
 =head1 ACCESSORS
 
