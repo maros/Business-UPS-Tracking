@@ -60,31 +60,31 @@ has 'xml' => (
 );
 has 'AddressLine1' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 has 'AddressLine2' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 has 'AddressLine3' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 has 'City' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 has 'StateProvinceCode' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 has 'PostalCode' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 has 'CountryCode' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 
 sub _build_address {

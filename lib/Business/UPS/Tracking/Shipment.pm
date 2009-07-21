@@ -78,36 +78,37 @@ has 'xml' => (
 );
 has 'ScheduledDelivery' => (
     is      => 'ro',
-    isa     => 'Date',
+    isa     => 'Maybe[Date]',
     lazy    => 1,
     builder => '_build_ScheduledDelivery',
 );
 has 'PickupDate' => (
     is      => 'ro',
-    isa     => 'Date',
+    isa     => 'Maybe[Date]',
     lazy    => 1,
     builder => '_build_PickupDate',
 );
 has 'ShipperNumber' => (
     is      => 'ro',
+    isa     => 'Str',
     lazy    => 1,
     builder => '_build_ShipperNumber',
 );
 has 'ShipperAddress' => (
     is      => 'ro',
-    isa     => 'Business::UPS::Tracking::Element::Address',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::Address]',
     lazy    => 1,
     builder => '_build_ShipperAddress',
 );
 has 'ShipmentWeight' => (
     is      => 'ro',
-    isa     => 'Business::UPS::Tracking::Element::Weight',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::Weight]',
     lazy    => 1,
     builder => '_build_ShipmentWeight',
 );
 has 'ShipToAddress' => (
     is      => 'ro',
-    isa     => 'Business::UPS::Tracking::Element::Address',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::Address]',
     lazy    => 1,
     builder => '_build_ShipToAddress',
 );
@@ -125,7 +126,7 @@ has 'ServiceDescription' => (
 );
 has 'ReferenceNumber' => (
     is      => 'ro',
-    isa     => 'Business::UPS::Tracking::Element::ReferenceNumber',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::ReferenceNumber]',
     lazy    => 1,
     builder => '_build_ReferenceNumber',
 );
@@ -143,7 +144,7 @@ sub _build_ScheduledDelivery {
     my $date    = Business::UPS::Tracking::Utils::parse_date($datestr);
 
     my $timestr = $self->xml->findvalue('ScheduledDeliveryTime');
-    $date = Business::UPS::Tracking::Utils::parseTime( $timestr, $date );
+    $date = Business::UPS::Tracking::Utils::parse_time( $timestr, $date );
 
     return $date;
 }

@@ -56,7 +56,7 @@ has 'UnitOfMeasurementCode'=> (
 );
 has 'UnitOfMeasurementDescription'=> (
     is      => 'rw',
-    isa     => 'Str',
+    isa     => 'Maybe[Str]',
 );
 has 'Weight'=> (
     is      => 'rw',

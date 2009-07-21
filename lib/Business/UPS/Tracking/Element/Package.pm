@@ -75,13 +75,13 @@ has 'xml' => (
 );
 has 'RerouteAddress' => (
     is    => 'ro',
-    isa   => 'Business::UPS::Tracking::Address',
+    isa   => 'Maybe[Business::UPS::Tracking::Address]',
     lazy  => 1,
     builder => '_build_RerouteAddress',
 );
 has 'ReturnToAddress' => (
     is    => 'ro',
-    isa   => 'Business::UPS::Tracking::Address',
+    isa   => 'Maybe[Business::UPS::Tracking::Address]',
     lazy  => 1,
     builder => '_build_ReturnToAddress',
 );
@@ -105,7 +105,7 @@ has 'SignatureRequired' => (
 #);
 has 'PackageWeight' => (
     is    => 'ro',
-    isa   => 'Business::UPS::Tracking::Element::Weight',
+    isa   => 'Maybe[Business::UPS::Tracking::Element::Weight]',
     lazy  => 1,
     builder => '_build_PackageWeight',
 );
@@ -117,25 +117,25 @@ has 'ReferenceNumber' => (
 );
 has 'ProductTypeCode' => (
     is    => 'ro',
-    isa   => 'Str',
+    isa   => 'Maybe[Str]',
     lazy  => 1,
     builder => '_build_ProductTypeCode',
 );
 has 'ProductTypeDescription' => (
     is    => 'ro',
-    isa   => 'Str',
+    isa   => 'Maybe[Str]',
     lazy  => 1,
     builder => '_build_ProductTypeDescription',
 );
 has 'TrackingNumber' => (
     is  => 'ro',
-    isa => 'TrackingNumber',
+    isa => 'Maybe[TrackingNumber]',
     lazy  => 1,
     builder => '_build_TrackingNumber',
 );
 has 'RescheduledDelivery' => (
     is      => 'ro',
-    isa     => 'Date',
+    isa     => 'Maybe[Date]',
     lazy    => 1,
     builder => '_build_RescheduledDelivery',
 );
@@ -161,18 +161,18 @@ sub _build_PackageWeight {
         'PackageWeight' );
 }
 
-sub _build_Message {
-    my ($self) = @_;
-
-    my @nodes = $self->xml->findnodes('Message');
-    my $return = [];
-    foreach my $node (@nodes) {
-        push @$return,Business::UPS::Tracking::Element::Message->new(
-            xml => $node,
-        );
-    }
-    return $return;
-}
+#sub _build_Message {
+#    my ($self) = @_;
+#
+#    my @nodes = $self->xml->findnodes('Message');
+#    my $return = [];
+#    foreach my $node (@nodes) {
+#        push @$return,Business::UPS::Tracking::Element::Message->new(
+#            xml => $node,
+#        );
+#    }
+#    return $return;
+#}
 
 
 

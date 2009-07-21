@@ -1,7 +1,7 @@
 #!perl
 
 use Test::NoWarnings;
-use Test::More tests => 48 + 1;
+use Test::More tests => 49 + 1;
 
 use lib qw(t/);
 use testlib;
@@ -47,7 +47,7 @@ is($shipment->ReferenceNumber->Description,'Unspecified','Reference number is ok
 is($shipment->ShipmentIdentificationNumber,'1Z12345E0291980793','Shipment identification number is ok');
 isa_ok($shipment->PickupDate,'DateTime');
 is($shipment->PickupDate->ymd('.'),'1999.06.08','PickupDate is ok');
-
+is($shipment->ScheduledDelivery,undef,'ScheduledDelivery is not set');
 isa_ok($shipment->Package,'ARRAY');
 my $package = $shipment->Package->[0];
 is($package->TrackingNumber,'1Z12345E0291980793','Tracking number is ok');
