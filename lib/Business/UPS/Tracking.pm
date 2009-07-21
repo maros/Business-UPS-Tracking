@@ -11,7 +11,7 @@ use Business::UPS::Tracking::Request;
 
 use version;
 use vars qw($VERSION);
-$VERSION = version->new('1.00');
+$VERSION = version->new('1.01');
 
 =encoding utf8
 
