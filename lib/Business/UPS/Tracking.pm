@@ -1,3 +1,4 @@
+
 # ================================================================
 package Business::UPS::Tracking;
 # ================================================================
@@ -24,16 +25,22 @@ Business::UPS::Tracking - Interface to the UPS tracking webservice
   use Business::UPS::Tracking;
   
   my $tracking = Business::UPS::Tracking->new(
-    license  => '1CFFED5A5E91B17',
-    username => 'myupsuser',
-    password => 'secret',
+    AccessLicenseNumber => '1CFFED5A5E91B17',
+    UserId              => 'myupsuser',
+    Password            => 'secret',
   );
   
   eval {
     my $response = $tracking->request(
       TrackingNumber  => '1Z12345E1392654435',
     )->run();
-    say 'Delivery scheduled for '.$response->shipment->ScheduledDelivery->dmy();
+    
+    foreach my $shipment ($response->shipment) {
+        say 'Service code is '.$shipment->ServiceCode;
+        foreach my $package ($shipment->Package) {
+            say 'Status is '.$package->CurrentStatus;
+        }
+    }
   };
   
   if (my $e = Exception::Class->caught) {
@@ -42,7 +49,7 @@ Business::UPS::Tracking - Interface to the UPS tracking webservice
         say 'HTTP ERROR:'.$e->full_message;
       }
       when ($_->isa('Business::UPS::Tracking::X::UPS')) {
-        say 'DPD ERRPR:'.$e->full_message.' ('.$e->code.')';
+        say 'DPD ERROR:'.$e->full_message.' ('.$e->code.')';
       }
       default {
         say 'SOME ERROR:'.$e;
