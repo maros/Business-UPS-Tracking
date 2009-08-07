@@ -19,7 +19,7 @@ Business::UPS::Tracking::Element::Activity - A small freight package activity
 =head1 DESCRIPTION
 
 This class represents an small freight package activity. Usually it is created 
-automatically from a L<Business::UPS::Tracking::Shipment> object.
+automatically from a L<Business::UPS::Tracking::Element::Package> object.
 
 =head1 ACCESSORS
 

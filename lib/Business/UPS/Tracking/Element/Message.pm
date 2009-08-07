@@ -1,5 +1,5 @@
 # ================================================================
-package Business::UPS::Tracking::Element::Address;
+package Business::UPS::Tracking::Element::Message;
 # ================================================================
 use utf8;
 use Moose;
@@ -13,38 +13,18 @@ our $VERSION = $Business::UPS::Tracking::VERISON;
 
 =head1 NAME
 
-Business::UPS::Tracking::Element::Address - An address
+Business::UPS::Tracking::Element::Message - A small package message
   
 =head1 DESCRIPTION
 
-This class represents an address. Usually it is created 
-automatically from a L<Business::UPS::Tracking::Shipment> object.
+This class represents a message for a small package. Usually it is created 
+automatically from a L<Business::UPS::Tracking::Element::Package> object.
 
 =head1 ACCESSORS
 
 =head2 xml
 
 Original L<XML::LibXML::Node> node.
-
-=head2 AddressLine1
-
-=head2 AddressLine2
-
-=head2 AddressLine3
-
-=head2 City
-
-=head2 StateProviceCode
-
-Only US and Canada
-
-=head2 PostalCode
-
-=head2 CountryCode
-
-ISO 3166-1 alpha-2 country code.
-
-=head1 METHODS
 
 =head2 meta
 
@@ -56,38 +36,18 @@ has 'xml' => (
     is       => 'rw',
     isa      => 'XML::LibXML::Node',
     required => 1,
-    trigger  => \&_build_address,
+    trigger  => \&_build_message,
 );
-has 'AddressLine1' => (
+has 'Code' => (
     is  => 'rw',
     isa => 'Maybe[Str]',
 );
-has 'AddressLine2' => (
-    is  => 'rw',
-    isa => 'Maybe[Str]',
-);
-has 'AddressLine3' => (
-    is  => 'rw',
-    isa => 'Maybe[Str]',
-);
-has 'City' => (
-    is  => 'rw',
-    isa => 'Maybe[Str]',
-);
-has 'StateProvinceCode' => (
-    is  => 'rw',
-    isa => 'Maybe[Str]',
-);
-has 'PostalCode' => (
-    is  => 'rw',
-    isa => 'Maybe[Str]',
-);
-has 'CountryCode' => (
+has 'Description' => (
     is  => 'rw',
     isa => 'Maybe[Str]',
 );
 
-sub _build_address {
+sub _build_message {
     my ( $self, $xml ) = @_;
 
     foreach my $node ( @{ $xml->childNodes } ) {
@@ -102,6 +62,11 @@ sub _build_address {
 }
 
 =head1 METHODS
+
+=head2 Status 
+
+=cut
+
 
 =head2 meta
 
