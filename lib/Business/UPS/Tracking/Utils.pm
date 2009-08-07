@@ -70,8 +70,8 @@ coerce 'DateStr'
 
 subtype 'TrackingNumber'
     => as 'Str'
-    => where { m/^1Z.+$/ }
-    => message { "Tracking numbers must start with '1Z'" };
+    => where { m/^1Z[A-Z0-9]{16}$/ }
+    => message { "Tracking numbers must start withn '1Z' and contain 16 additional characters" };
 
 subtype 'CountryCode'
     => as 'Str'

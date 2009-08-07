@@ -9,7 +9,7 @@ use testlib;
 
 eval {
     my $request = Business::UPS::Tracking::Request->new( 
-        TrackingNumber    => '1Z12345E029198079',
+        TrackingNumber    => '1Z12345E0291980790',
         tracking          => &tracking,
     );    
     return $request->run; 
@@ -28,7 +28,7 @@ eval {
     my $tracking = &tracking;
     $tracking->url('https://really-broken-url-and-simulate-http-exception.com');
     my $request = Business::UPS::Tracking::Request->new( 
-        TrackingNumber    => '1Z12345E029198079',
+        TrackingNumber    => '1Z12345E0291980790',
         tracking          => $tracking,
     );    
     return $request->run; 
