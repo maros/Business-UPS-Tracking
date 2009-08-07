@@ -13,13 +13,14 @@ perl_version    '5.010';
 # Specific dependencies
 requires        'overload'              => 0;
 requires        'Moose'                 => 0;
-requires        'DateTime'              => 0;
+requires        'DateTime'              => '0.44';
 requires        'Exception::Class'      => 0;
 requires        'LWP::UserAgent'        => 0;
-unless (check_modules('IO::Socket::SSL','Crypt::SSLeay')) {
+unless (can_use('IO::Socket::SSL')) {
     requires    'Crypt::SSLeay'         => 0;
 }
 requires        'XML::LibXML'           => 0;
+
 build_requires  'Test::NoWarnings'      => 0;
 
 repository 'git://github.com/maros/Business-UPS-Tracking.git';
