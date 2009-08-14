@@ -1,5 +1,17 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.03 ?
+    - Add checksum check for tracking numbers
+    - Moose exceptions are thrown using Business::UPS::Tracking::X::CLASS
+    - 
+
+1.02 Fri Aug 7 2009
+    - Better detection of HTTPS prerequisites
+    - Fixed errors in doc example
+    - Added message element class
+    - Fix some typos
+    - Make tracking number type checking more strict
+
 1.01 Tue Jul 21 2009
     - Fixed some typos in documentation
     - Added change file
