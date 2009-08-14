@@ -2,8 +2,13 @@
 package Business::UPS::Tracking::Utils;
 # ================================================================
 use utf8;
-use Moose;
 use 5.0100;
+
+use metaclass (
+    metaclass   => "Moose::Meta::Class",
+    error_class => "Business::UPS::Tracking::Exception",
+);
+use Moose;
 
 use Business::UPS::Tracking;
 use Business::UPS::Tracking::Element::Address;
@@ -39,9 +44,10 @@ subtype 'XMLDocument' => as class_type('XML::LibXML::Document');
 coerce 'XMLDocument' 
     => from 'Str' 
     => via {
+        my $xml = $_;
         my $parser = XML::LibXML->new();
         my $doc = eval {
-            $parser->parse_string($_);
+            $parser->parse_string($xml);
         };
         if (! $doc) {
             Business::UPS::Tracking::X::XML->throw($@ || 'Unknown error parsing xml document');
@@ -70,33 +76,38 @@ coerce 'DateStr'
 
 subtype 'TrackingNumber'
     => as 'Str'
-    => where { m/^1Z[A-Z0-9]{16}$/ }
-    => message { "Tracking numbers must start withn '1Z' and contain 16 additional characters" };
+    => where { 
+        my $trackingnumber = $_;
+        return 0 
+            unless ($trackingnumber =~ m/^1Z(?<tracking>[A-Z0-9]{8}\d{7})(?<checksum>\d)$/); 
+        # Checksum check fails because UPS testdata has invalid checksum!
+        return 1    
+            unless $Business::UPS::Tracking::CHECKSUM;
+        my $checksum = $+{checksum};
+        my $tracking = $+{tracking}; 
+        $tracking =~ tr/ABCDEFGHIJKLMNOPQRSTUVWXYZ/23456789012345678901234567/;
+        my ($odd,$even,$pos) = (0,0,0);
+        foreach (split //,$tracking) {
+            $pos ++;
+            if ($pos % 2) {
+                $odd += $_;
+            } else {
+                $even += $_;
+            }
+        }
+        $even *= 2;
+        my $calculated = $odd + $even;
+        $calculated =~ s/^\d+(\d)$/$1/e;
+        $calculated = 10 - $calculated
+            unless ($calculated == 0);
+        return ($checksum == $calculated);
+    }
+    => message { "Tracking numbers must start withn '1Z' and contain 15 additional" };
 
 subtype 'CountryCode'
     => as 'Str'
     => where { m/^[A-Z]{2}$/ }
     => message { "Must be an uppercase ISO 3166-1 alpha-2 code" };
-
-use Exception::Class( 
-    'Business::UPS::Tracking::X'    => {
-        description   => 'Basic error'
-    },
-    'Business::UPS::Tracking::X::HTTP' => {
-        isa           => 'Business::UPS::Tracking::X',    
-        description   => 'HTTP error',
-        fields        => ['http_response','request']
-    },
-    'Business::UPS::Tracking::X::UPS'  => {
-        isa           => 'Business::UPS::Tracking::X',    
-        description   => 'UPS error',
-        fields        => ['code','severity','request','context']
-    },
-    'Business::UPS::Tracking::X::XML'  => {
-        isa           => 'Business::UPS::Tracking::X',    
-        description   => 'Malformed response xml',
-    },
-);
 
 =head3 parse_date
 
