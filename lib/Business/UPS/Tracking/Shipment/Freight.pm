@@ -2,9 +2,13 @@
 package Business::UPS::Tracking::Shipment::Freight;
 # ================================================================
 use utf8;
-use Moose;
 use 5.0100;
 
+use metaclass (
+    metaclass   => "Moose::Meta::Class",
+    error_class => "Business::UPS::Tracking::Exception",
+);
+use Moose;
 extends 'Business::UPS::Tracking::Shipment';
 
 our $VERSION = $Business::UPS::Tracking::VERISON;

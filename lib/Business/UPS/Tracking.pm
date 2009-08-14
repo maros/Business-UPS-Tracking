@@ -1,18 +1,24 @@
-
 # ================================================================
 package Business::UPS::Tracking;
 # ================================================================
 use utf8;
-use Moose;
 use 5.0100;
+
+use metaclass (
+    metaclass   => "Moose::Meta::Class",
+    error_class => "Business::UPS::Tracking::Exception",
+);
+use Moose;
 
 use LWP::UserAgent;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Request;
 
 use version;
-use vars qw($VERSION);
-$VERSION = version->new('1.01');
+
+our $VERSION = version->new('1.02');
+our $CHECKSUM = 1;
+our $AUTHORITY = 'cpan:MAROS';
 
 =encoding utf8
 
@@ -149,6 +155,11 @@ UPS error message.The object provides additional parameters:
 =item * Business::UPS::Tracking::X::XML
 
 XML parser or schema error.
+
+=item * Business::UPS::Tracking::X::Class
+
+Error originating from the wrong usage of a method/accessor/class. Most
+commonly this will be thrown because of a failing type constraint.
 
 =back
 

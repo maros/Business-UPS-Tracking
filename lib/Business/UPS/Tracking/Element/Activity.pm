@@ -2,8 +2,13 @@
 package Business::UPS::Tracking::Element::Activity;
 # ================================================================
 use utf8;
-use Moose;
 use 5.0100;
+
+use metaclass (
+    metaclass   => "Moose::Meta::Class",
+    error_class => "Business::UPS::Tracking::Exception",
+);
+use Moose;
 
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;

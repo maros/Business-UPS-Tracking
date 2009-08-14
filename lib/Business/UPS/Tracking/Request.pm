@@ -2,8 +2,13 @@
 package Business::UPS::Tracking::Request;
 # ================================================================
 use utf8;
-use Moose;
 use 5.0100;
+
+use metaclass (
+    metaclass   => "Moose::Meta::Class",
+    error_class => "Business::UPS::Tracking::Exception",
+);
+use Moose;
 
 use DateTime;
 use XML::LibXML;
@@ -53,7 +58,11 @@ L<Business::UPS::Tracking> object.
 
 =head2 TrackingNumber
 
-Unique UPS tracking number.
+UPS tracking number. This number has to start with '1Z' and have a valid
+checksum. You can globally turn off this check by setting
+C<$Business::UPS::Tracking::CHECKSUM = 0> (which is not recommended, 
+but eg. needed for testing since test shipments at the UPS server do not
+have a valid checksum)
 
 =head2 ReferenceNumber
 
