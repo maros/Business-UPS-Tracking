@@ -17,6 +17,9 @@ diag(<<NOTE
 NOTE
 );
 
+# Disable checksum test
+$Business::UPS::Tracking::CHECKSUM = 0;
+
 my $response = testrequest(
     TrackingNumber    => '1Z12345E0291980793',
     CustomerContext   => 'TESTCONTEXT',

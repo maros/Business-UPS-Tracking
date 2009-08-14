@@ -6,6 +6,9 @@ use Test::More tests => 12 + 1;
 use lib qw(t/);
 use testlib;
 
+# Disable checksum test
+$Business::UPS::Tracking::CHECKSUM = 0;
+
 my $response1 = testrequest(
     TrackingNumber    => '1Z12345E0390515214',
 );

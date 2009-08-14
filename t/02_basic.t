@@ -37,14 +37,14 @@ like(
     'Check access request password'
 );
 
-my $request1 = $tracking->request( TrackingNumber => '1Z12345E1111111111' );
+my $request1 = $tracking->request( TrackingNumber => '1Z12345E1111111114' );
 isa_ok( $request1, 'Business::UPS::Tracking::Request' );
-is( $request1->TrackingNumber, '1Z12345E1111111111',
+is( $request1->TrackingNumber, '1Z12345E1111111114',
     'Check TrackingNumber accesor' );
 is( $request1->tracking, $tracking, 'Check tracking accesor' );
 like(
     $request1->tracking_request,
-    qr|<TrackRequest><Request><RequestAction>Track</RequestAction><RequestOption>activity</RequestOption></Request><TrackingNumber>1Z12345E1111111111</TrackingNumber></TrackRequest>|,
+    qr|<TrackRequest><Request><RequestAction>Track</RequestAction><RequestOption>activity</RequestOption></Request><TrackingNumber>1Z12345E1111111114</TrackingNumber></TrackRequest>|,
     'Check track request 1'
 );
 
