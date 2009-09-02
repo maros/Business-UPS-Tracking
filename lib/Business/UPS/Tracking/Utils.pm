@@ -264,4 +264,6 @@ sub escape_xml {
     return $string;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;

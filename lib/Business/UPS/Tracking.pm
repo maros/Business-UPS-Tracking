@@ -17,8 +17,8 @@ use Business::UPS::Tracking::Request;
 use version;
 
 our $VERSION = version->new('1.02');
-our $CHECKSUM = 1;
 our $AUTHORITY = 'cpan:MAROS';
+our $CHECKSUM = 1;
 
 =encoding utf8
 
