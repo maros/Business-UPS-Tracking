@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -55,7 +55,7 @@ Business::UPS::Tracking - Interface to the UPS tracking webservice
         say 'HTTP ERROR:'.$e->full_message;
       }
       when ($_->isa('Business::UPS::Tracking::X::UPS')) {
-        say 'DPD ERROR:'.$e->full_message.' ('.$e->code.')';
+        say 'UPS ERROR:'.$e->full_message.' ('.$e->code.')';
       }
       default {
         say 'SOME ERROR:'.$e;
@@ -174,7 +174,7 @@ functions.
 
 In order to use this module you need to obtain a "Tracking WebService" 
 license key. See L<http://www.ups.com/e_comm_access/gettools_index> for more
-inforation.
+information.
 
 =head1 METHODS
 
@@ -240,25 +240,30 @@ has 'AccessLicenseNumber' => (
     is       => 'rw',
     required => 1,
     isa      => 'Str',
+    documentation   => 'UPS webservice license number',
 );
 has 'UserId' => (
     is       => 'rw',
     required => 1,
     isa      => 'Str',
+    documentation   => 'UPS webservice user id',
 );
 has 'Password' => (
     is       => 'rw',
     required => 1,
     isa      => 'Str',
+    documentation   => 'UPS webservice password',
 );
 has 'retry_http' => (
     is      => 'rw',
     isa     => 'Int',
     default => 0,
+    documentation   => 'Number of retries if HTTP erros occur [Default 0]',
 );
 has 'url' => (
     is      => 'rw',
-    default => 'https://wwwcie.ups.com/ups.app/xml/Track'
+    default => 'https://wwwcie.ups.com/ups.app/xml/Track',
+    documentation   => 'UPS webservice url',
 );
 has '_ua' => (
     is      => 'rw',
