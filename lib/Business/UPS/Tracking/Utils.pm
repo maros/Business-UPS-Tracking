@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Utils;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -10,10 +10,10 @@ use metaclass (
 );
 use Moose;
 
+use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking;
-use Business::UPS::Tracking::Element::Address;
-use Business::UPS::Tracking::Element::Weight;
-use Business::UPS::Tracking::Element::ReferenceNumber;
+use MooseX::Getopt::OptionTypeMap;
+use Business::UPS::Tracking::Meta::Attribute::Trait::Serializable;
 
 our $VERSION = $Business::UPS::Tracking::VERISON;
 
@@ -37,7 +37,7 @@ coercions as well as the exception classes.
 
 =cut
 
-use Moose::Util::TypeConstraints;
+
 
 subtype 'XMLDocument' => as class_type('XML::LibXML::Document');
 
@@ -102,12 +102,14 @@ subtype 'TrackingNumber'
             unless ($calculated == 0);
         return ($checksum == $calculated);
     }
-    => message { "Tracking numbers must start withn '1Z' and contain 15 additional" };
+    => message { "Tracking numbers must start withn '1Z', contain 14 additional characters and end with a valid checksum" };
 
 subtype 'CountryCode'
     => as 'Str'
     => where { m/^[A-Z]{2}$/ }
     => message { "Must be an uppercase ISO 3166-1 alpha-2 code" };
+
+
 
 =head3 parse_date
 
@@ -178,71 +180,6 @@ sub parse_time {
     return $datetime;
 }
 
-=head3 build_address
-
- my $address = build_address($libxml_node,$xpath_expression);
-
-Turns an address xml node into a L<Business::UPS::Tracking::Element::Address> 
-object.
-
-=cut
-
-sub build_address {
-    my ($xml,$xpath) = @_;
-    
-    my $node = $xml->findnodes($xpath)->get_node(1);
-    
-    return 
-        unless $node && ref $node;
-        
-    return Business::UPS::Tracking::Element::Address->new(
-        xml => $node,
-    );
-}
-
-=head3 build_weight
-
- my $weight = build_weight($libxml_node,$xpath_expression);
-
-Turns an weight xml node into a L<Business::UPS::Tracking::Element::Weight> 
-object.
-
-=cut
-
-sub build_weight {
-    my ($xml,$xpath) = @_;
-    
-    my $node = $xml->findnodes($xpath)->get_node(1);
-    
-    return 
-        unless $node && ref $node;
-        
-    return Business::UPS::Tracking::Element::Weight->new(
-        xml => $node,
-    );
-}
-
-=head3 build_referencenumber
-
- my $weight = build_referencenumber($libxml_node,$xpath_expression);
-
-Turns an weight xml node into a 
-L<Business::UPS::Tracking::Element::ReferenceNumber> object.
-
-=cut
-
-sub build_referencenumber {
-    my ($xml,$xpath) = @_;
-    
-    my $node = $xml->findnodes($xpath)->get_node(1);
-    
-    return 
-        unless $node && ref $node;
-        
-    return Business::UPS::Tracking::Element::ReferenceNumber->new(
-        xml => $node,
-    );
-}
 
 =head3 escape_xml
 
