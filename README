@@ -1,20 +1,26 @@
 NAME
-    Business::UPS::Tracking - Interface to UPS Tracking webservice
+    Business::UPS::Tracking - Interface to the UPS tracking webservice
 
 SYNOPSIS
       use Business::UPS::Tracking;
   
       my $tracking = Business::UPS::Tracking->new(
-        license  => '',
-        username => 'myupsuser',
-        password => 'secret',
+        AccessLicenseNumber => '1CFFED5A5E91B17',
+        UserId              => 'myupsuser',
+        Password            => 'secret',
       );
   
       eval {
         my $response = $tracking->request(
           TrackingNumber  => '1Z12345E1392654435',
         )->run();
-        say 'Delivery scheduled for '.$response->shipment->ScheduledDelivery->dmy();
+    
+        foreach my $shipment ($response->shipment) {
+            say 'Service code is '.$shipment->ServiceCode;
+            foreach my $package ($shipment->Package) {
+                say 'Status is '.$package->CurrentStatus;
+            }
+        }
       };
   
       if (my $e = Exception::Class->caught) {
@@ -23,7 +29,7 @@ SYNOPSIS
             say 'HTTP ERROR:'.$e->full_message;
           }
           when ($_->isa('Business::UPS::Tracking::X::UPS')) {
-            say 'DPD ERRPR:'.$e->full_message.' ('.$e->code.')';
+            say 'UPS ERROR:'.$e->full_message.' ('.$e->code.')';
           }
           default {
             say 'SOME ERROR:'.$e;
@@ -33,47 +39,47 @@ SYNOPSIS
 
 DESCRIPTION
   Class structure
-                         .-----------------------------------.
-                         |     Business::UPS::Tracking       |
-                         '-----------------------------------'
-                                         ^
-                                      HAS ONE 
-                                         |
-                         .-----------------------------------.
-                         |         B::U::T::Request          |
-                         '-----------------------------------'
-                                         ^
-                                      HAS ONE
-                                         |
-                         .-----------------------------------.
-                         |         B::U::T::Response         |
-                         '-----------------------------------'
-                                         |
-                                      HAS MANY
-                                         v
-                         .-----------------------------------.
-                         |         B::U::T::Shipment         |
-                         '-----------------------------------'
-                             ^                           ^
-                            ISA                         ISA
-                             |                           |
-       .---------------------------------. .-----------------------------------.
-       |    B::U::T::Shipment::Freight   | |  B::U::T::Shipment::Smallpackage  |
-       |---------------------------------| |-----------------------------------|
-       | Freight shipment type           | | Small package shipment type       |
-       | Not yet implemented             | '-----------------------------------'
-       '---------------------------------'               |
-                                                      HAS MANY
-                                                         v
-                                          .-----------------------------------.
-                                          |     B::U::T::Element::Package     |
-                                          '-----------------------------------'
-                                                         |
-                                                      HAS MANY
-                                                         v
-                                          .-----------------------------------.
-                                          |    B::U::T::Element::Activity     |
-                                          '-----------------------------------'
+                       .-----------------------------------.
+                       |     Business::UPS::Tracking       |
+                       '-----------------------------------'
+                                       ^
+                                    HAS ONE 
+                                       |
+                       .-----------------------------------.
+                       |         B::U::T::Request          |
+                       '-----------------------------------'
+                                       ^
+                                    HAS ONE
+                                       |
+                       .-----------------------------------.
+                       |         B::U::T::Response         |
+                       '-----------------------------------'
+                                       |
+                                    HAS MANY
+                                       v
+                       .-----------------------------------.
+                       |         B::U::T::Shipment         |
+                       '-----------------------------------'
+                           ^                           ^
+                          ISA                         ISA
+                           |                           |
+     .---------------------------------. .-----------------------------------.
+     |    B::U::T::Shipment::Freight   | |  B::U::T::Shipment::Smallpackage  |
+     |---------------------------------| |-----------------------------------|
+     | Freight shipment type           | | Small package shipment type       |
+     | Not yet implemented             | '-----------------------------------'
+     '---------------------------------'               |
+                                                    HAS MANY
+                                                       v
+                                         .-----------------------------------.
+                                         |     B::U::T::Element::Package     |
+                                         '-----------------------------------'
+                                                       |
+                                                    HAS MANY
+                                                       v
+                                         .-----------------------------------.
+                                         |    B::U::T::Element::Activity     |
+                                         '-----------------------------------'
 
   Exception Handling
     If anythis goes wrong Business::UPS::Tracking throws an exception.
@@ -114,6 +120,12 @@ DESCRIPTION
 
         XML parser or schema error.
 
+    *   Business::UPS::Tracking::X::Class
+
+        Error originating from the wrong usage of a method/accessor/class.
+        Most commonly this will be thrown because of a failing type
+        constraint.
+
   Accessor / method nameing
     The nameing of the methods and accessors tries to stick close to the
     names used by the UPS webservice. All accessors containg uppercase
@@ -123,7 +135,7 @@ DESCRIPTION
   UPS license
     In order to use this module you need to obtain a "Tracking WebService"
     license key. See <http://www.ups.com/e_comm_access/gettools_index> for
-    more inforation.
+    more information.
 
 METHODS
   new

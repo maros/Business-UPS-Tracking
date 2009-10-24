@@ -2,20 +2,25 @@
 use strict;
 use inc::Module::Install;
 
+
+my $from = 'lib/Business/UPS/Tracking.pm';
+
 # Define metadata
 name            'Business-UPS-Tracking';
-all_from        'lib/Business/UPS/Tracking.pm';
+all_from        $from;
+readme_from     $from;
+readme_markdown_from $from;
 
 perl_version    '5.010';
 
-
-
 # Specific dependencies
-requires        'overload'              => 0;
 requires        'Moose'                 => 0;
 requires        'DateTime'              => '0.44';
 requires        'Exception::Class'      => 0;
 requires        'LWP::UserAgent'        => 0;
+requires        'Text::SimpleTable'     => 0;
+requires        'MooseX::Getopt'        => 0;
+requires        'Path::Class'           => 0;
 unless (can_use('IO::Socket::SSL')) {
     requires    'Crypt::SSLeay'         => 0;
 }
@@ -23,19 +28,14 @@ requires        'XML::LibXML'           => 0;
 
 build_requires  'Test::NoWarnings'      => 0;
 
+author_requires 'Test::Pod'             => '1.14';
+author_requires 'Test::Pod::Coverage'   => '1.04';
+author_requires 'Test::Perl::Critic'    => 0;
+author_requires 'Module::Install::ReadmeMarkdownFromPod'=> 0;
+author_requires 'Module::Install::ReadmeFromPod'        => 0;
+
 repository 'git://github.com/maros/Business-UPS-Tracking.git';
 
-WriteAll;
+install_script 'bin/ups_tracking';
 
-sub check_modules {
-    my @modules = @_;
-    
-    foreach my $module (@modules) {
-        eval qq[use $module];
-        if ($@) {
-            next;
-        }
-        return 0;
-    }
-    return 1;
-}
+WriteAll;
