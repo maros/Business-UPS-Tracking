@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Element::Package;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -9,6 +9,8 @@ use metaclass (
     error_class => "Business::UPS::Tracking::Exception",
 );
 use Moose;
+with qw(Business::UPS::Tracking::Role::Serialize
+    Business::UPS::Tracking::Role::Builder);
 
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
@@ -80,104 +82,104 @@ has 'xml' => (
 );
 has 'RerouteAddress' => (
     is    => 'ro',
-    isa   => 'Maybe[Business::UPS::Tracking::Address]',
-    lazy  => 1,
-    builder => '_build_RerouteAddress',
+    isa   => 'Maybe[Business::UPS::Tracking::Element::Address]',
+    traits  => ['Serializable'],
+    documentation   => 'Reroute address',
+    lazy_build      => 1,
 );
 has 'ReturnToAddress' => (
     is    => 'ro',
-    isa   => 'Maybe[Business::UPS::Tracking::Address]',
-    lazy  => 1,
-    builder => '_build_ReturnToAddress',
+    isa   => 'Maybe[Business::UPS::Tracking::Element::Address]',
+    traits  => ['Serializable'],
+    documentation   => 'Return address',
+    lazy_build      => 1,
 );
 has 'Activity' => (
     is    => 'ro',
     isa   => 'ArrayRef[Business::UPS::Tracking::Element::Activity]',
-    lazy  => 1,
-    builder => '_build_Activity',
+    traits  => ['Serializable'],
+    lazy_build      => 1,
 );
 has 'SignatureRequired' => (
     is    => 'ro',
-    isa   => 'Str',
-    lazy  => 1,
-    builder => '_build_SignatureRequired',
+    isa   => 'Maybe[Str]',
+    traits  => ['Serializable'],
+    documentation   => 'Signature required',
+    lazy_build      => 1,
 );
-#has 'Message' => (
-#    is    => 'ro',
-#    isa   => 'ArrayRef[Business::UPS::Tracking::Element::Message]',
-#    lazy  => 1,
-#    builder => '_build_Message',
-#);
+has 'Message' => (
+    is    => 'ro',
+    isa   => 'ArrayRef[Business::UPS::Tracking::Element::Code]',
+    traits  => ['Serializable'],
+    documentation   => 'Message',
+    lazy_build      => 1,
+);
 has 'PackageWeight' => (
     is    => 'ro',
     isa   => 'Maybe[Business::UPS::Tracking::Element::Weight]',
-    lazy  => 1,
-    builder => '_build_PackageWeight',
+    traits  => ['Serializable'],
+    documentation   => 'Weight',
+    lazy_build      => 1,
 );
 has 'ReferenceNumber' => (
     is      => 'ro',
     isa     => 'ArrayRef[Business::UPS::Tracking::Element::ReferenceNumber]',
-    lazy    => 1,
-    builder => '_build_ReferenceNumber',
+    traits  => ['Serializable'],
+    documentation   => 'Reference number',
+    lazy_build      => 1,
 );
-has 'ProductTypeCode' => (
+has 'ProductType' => (
     is    => 'ro',
     isa   => 'Maybe[Str]',
-    lazy  => 1,
-    builder => '_build_ProductTypeCode',
-);
-has 'ProductTypeDescription' => (
-    is    => 'ro',
-    isa   => 'Maybe[Str]',
-    lazy  => 1,
-    builder => '_build_ProductTypeDescription',
+    traits  => ['Serializable'],
+    documentation   => 'Product type',
+    lazy_build      => 1,
 );
 has 'TrackingNumber' => (
     is  => 'ro',
     isa => 'Maybe[TrackingNumber]',
-    lazy  => 1,
-    builder => '_build_TrackingNumber',
+    traits  => ['Serializable'],
+    documentation   => 'Tracking number',
+    lazy_build      => 1,
 );
 has 'RescheduledDelivery' => (
     is      => 'ro',
     isa     => 'Maybe[Date]',
-    lazy    => 1,
-    builder => '_build_RescheduledDelivery',
+    traits  => ['Serializable'],
+    documentation   => 'Rescheduled delivery date',
+    lazy_build      => 1,
 );
 
 sub _build_RerouteAddress {
     my ($self) = @_;
 
-    return Business::UPS::Tracking::Utils::build_address( $self->xml,
-        'Reroute/Address' );
+    return $self->build_address( 'Reroute/Address' );
 }
 
 sub _build_ReturnToAddress {
     my ($self) = @_;
 
-    return Business::UPS::Tracking::Utils::build_address( $self->xml,
-        'ReturnTo/Address' );
+    return $self->build_address( 'ReturnTo/Address' );
 }
 
 sub _build_PackageWeight {
     my ($self) = @_;
 
-    return Business::UPS::Tracking::Utils::build_weight( $self->xml,
-        'PackageWeight' );
+    return $self->build_weight( 'PackageWeight' );
 }
 
-#sub _build_Message {
-#    my ($self) = @_;
-#
-#    my @nodes = $self->xml->findnodes('Message');
-#    my $return = [];
-#    foreach my $node (@nodes) {
-#        push @$return,Business::UPS::Tracking::Element::Message->new(
-#            xml => $node,
-#        );
-#    }
-#    return $return;
-#}
+sub _build_Message {
+    my ($self) = @_;
+
+    my @nodes = $self->xml->findnodes('Message');
+    my $return = [];
+    foreach my $node (@nodes) {
+        push @$return,Business::UPS::Tracking::Element::Code->new(
+            xml => $node,
+        );
+    }
+    return $return;
+}
 
 
 
@@ -203,18 +205,11 @@ sub _build_SignatureRequired {
         || undef;
 }
 
-sub _build_ProductTypeCode {
+
+sub _build_ProductType {
     my ($self) = @_;
-
-    return $self->xml->findvalue('ProductType/Code')
-        || undef;
-}
-
-sub _build_ProductTypeDescription {
-    my ($self) = @_;
-
-    return $self->xml->findvalue('ProductType/Description')
-        || undef;
+    
+    return $self->build_code('ProductType');
 }
 
 sub _build_ReferenceNumber {

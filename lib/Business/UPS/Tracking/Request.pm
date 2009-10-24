@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Request;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -127,54 +127,65 @@ has 'tracking' => (
 );
 has 'TrackingNumber' => (
     is  => 'rw',
-    isa => 'TrackingNumber'
+    isa => 'TrackingNumber',
+    documentation   => 'Shipment tracking number',
 );
 has 'ReferenceNumber' => (
     is  => 'rw',
-    isa => 'Str'
+    isa => 'Str',
+    documentation   => 'Shipment reference number',
 );
 has 'ShipperNumber' => (
     is  => 'rw',
-    isa => 'Str'
+    isa => 'Str',
+    documentation   => 'Shipper UPS customernumber',
 );
 has 'DestinationPostalCode' => (
     is  => 'rw',
-    isa => 'Str'
+    isa => 'Str',
+    documentation   => 'Shipment destination postal code',
 );
 has 'DestinationCountryCode' => (
     is  => 'rw',
-    isa => 'CountryCode'
+    isa => 'CountryCode',
+    documentation   => 'Shipment destination country code',
 );
 has 'OriginPostalCode' => (
     is  => 'rw',
-    isa => 'Str'
+    isa => 'Str',
+    documentation   => 'Shipment origin postal code',
 );
 has 'OriginCountryCode' => (
     is  => 'rw',
-    isa => 'CountryCode'
+    isa => 'CountryCode',
+    documentation   => 'Shipment origin country code',
 );
 has 'CustomerContext' => (
     is  => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 has 'ShipmentIdentificationNumber' => (
     is  => 'rw',
-    isa => 'Str'
+    isa => 'Str',
+    documentation   => 'Shipment identification number',
 );
 has 'PickupDateRangeBegin' => (
     is     => 'rw',
     isa    => 'DateStr',
     coerce => 1,
+    documentation   => 'Shipment pickup date range begin',
 );
 has 'PickupDateRangeEnd' => (
     is     => 'rw',
     isa    => 'DateStr',
     coerce => 1,
+    documentation   => 'Shipment pickup date range end',
 );
 has 'ShmipmentType' => (
     is      => 'rw',
     isa     => enum( [ '01', '02' ] ),
     default => '01',
+    documentation   => 'Shipment type ["01" - Small shipment (Default), "02" - Freight ]',
 );
 has 'IncludeFreight' => (
     is      => 'rw',

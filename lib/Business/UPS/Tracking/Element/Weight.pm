@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Element::Weight;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -11,6 +11,7 @@ use metaclass (
 use Moose;
 
 use Business::UPS::Tracking::Utils;
+use Business::UPS::Tracking::Element::Code;
 
 our $VERSION = $Business::UPS::Tracking::VERISON;
 
@@ -33,13 +34,10 @@ This module uses overload for stringification if called in string context.
 
 Original L<XML::LibXML::Node> node.
 
-=head2 UnitOfMeasurementCode
+=head2 UnitOfMeasurement
 
-Unit of measurement code
-
-=head2 UnitOfMeasurementDescription
-
-Unit of measurement string
+Unit of measurement. 
+Returns a L<Business::UPS::Tracking::Element::Code> object.
 
 =head2 Weight
 
@@ -47,21 +45,16 @@ Weight value (e.g. '5.50')
 
 =cut
 
-use overload '""' => \&_print, fallback => 1;
-
 has 'xml' => (
     is       => 'rw',
     isa      => 'XML::LibXML::Node',
     required => 1,
     trigger  => \&_build_weight,
 );
-has 'UnitOfMeasurementCode'=> (
+has 'UnitOfMeasurement'=> (
     is      => 'rw',
-    isa     => 'Str',
-);
-has 'UnitOfMeasurementDescription'=> (
-    is      => 'rw',
-    isa     => 'Maybe[Str]',
+    isa     => 'Business::UPS::Tracking::Element::Code',
+    lazy_build  => 1,
 );
 has 'Weight'=> (
     is      => 'rw',
@@ -71,25 +64,32 @@ has 'Weight'=> (
 sub _build_weight {
     my ($self,$xml) = @_;
     
-    $self->UnitOfMeasurementCode($xml->findvalue('UnitOfMeasurement/Code'));
-    $self->UnitOfMeasurementDescription($xml->findvalue('UnitOfMeasurement/Description'));
+    my $unit = Business::UPS::Tracking::Element::Code->new(
+        xml => $xml->findnodes('UnitOfMeasurement')->get_node(1)
+    );
+
+    $self->UnitOfMeasurement($unit);
     $self->Weight($xml->findvalue('Weight'));
     
     return;
 }
 
-sub _print {
-    my ($self) = @_;
-    return $self->Weight.' '.$self->UnitOfMeasurementCode;
-}
-
 =head1 METHODS
+
+=head2 serialize
+
+Returns the weight as a string (eg. '14.5 KGS')
 
 =head2 meta
 
 Moose meta method
 
 =cut
+
+sub serialize {
+    my ($self) = @_;
+    return $self->Weight.' '.$self->UnitOfMeasurement->Code;
+}
 
 __PACKAGE__->meta->make_immutable;
 

@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Shipment::SmallPackage;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -42,7 +42,7 @@ List of packages (L<Business::UPS::Tracking::Element::Package>)
 has 'Package' => (
     is      => 'ro',
     isa     => 'ArrayRef[Business::UPS::Tracking::Element::Package]',
-    traits  => ['Serializeable'],
+    traits  => ['Serializable'],
     documentation   => 'Package',
     lazy_build      => 1,
 );

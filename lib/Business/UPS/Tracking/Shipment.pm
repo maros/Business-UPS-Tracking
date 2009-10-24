@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Shipment;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -9,6 +9,8 @@ use metaclass (
     error_class => "Business::UPS::Tracking::Exception",
 );
 use Moose;
+with qw(Business::UPS::Tracking::Role::Serialize
+    Business::UPS::Tracking::Role::Builder);
 
 use Business::UPS::Tracking::Utils;
 
@@ -61,13 +63,10 @@ object.
 Shipment destination address. Returns a 
 L<Business::UPS::Tracking::Element::Address> object.
 
-=head2 ServiceCode
+=head2 Service
 
-UPS service code. (eg. '002' for 2nd day air)
-
-=head2 ServiceDescription
-
-UPS service code description (eg. '2ND DAY AIR')
+Service code and description. 
+Returns a L<Business::UPS::Tracking::Element::Code> object.
 
 =head2 ShipmentReferenceNumber
 
@@ -84,62 +83,65 @@ has 'xml' => (
 has 'ScheduledDelivery' => (
     is      => 'ro',
     isa     => 'Maybe[Date]',
-    lazy    => 1,
-    builder => '_build_ScheduledDelivery',
+    traits  => ['Serializable'],
+    lazy_build      => 1,
+    documentation   => 'Scheduled delivery date',
 );
 has 'PickupDate' => (
     is      => 'ro',
     isa     => 'Maybe[Date]',
-    lazy    => 1,
-    builder => '_build_PickupDate',
+    traits  => ['Serializable'],
+    documentation   => 'Pickup date',
+    lazy_build      => 1,
 );
 has 'ShipperNumber' => (
     is      => 'ro',
     isa     => 'Str',
-    lazy    => 1,
-    builder => '_build_ShipperNumber',
+    traits  => ['Serializable'],
+    documentation   => 'Shipper UPS customer number',
+    lazy_build      => 1,
 );
 has 'ShipperAddress' => (
     is      => 'ro',
     isa     => 'Maybe[Business::UPS::Tracking::Element::Address]',
-    lazy    => 1,
-    builder => '_build_ShipperAddress',
+    traits  => ['Serializable'],
+    documentation   => 'Shipper address',
+    lazy_build      => 1,
 );
 has 'ShipmentWeight' => (
     is      => 'ro',
     isa     => 'Maybe[Business::UPS::Tracking::Element::Weight]',
-    lazy    => 1,
-    builder => '_build_ShipmentWeight',
+    traits  => ['Serializable'],
+    documentation => 'Shipment weight',
+    lazy_build    => 1,
 );
 has 'ShipToAddress' => (
     is      => 'ro',
     isa     => 'Maybe[Business::UPS::Tracking::Element::Address]',
-    lazy    => 1,
-    builder => '_build_ShipToAddress',
+    traits  => ['Serializable'],
+    documentation   => 'Destination address',
+    lazy_build      => 1,
 );
-has 'ServiceCode' => (
+has 'Service' => (
     is      => 'ro',
-    isa     => 'Str',
-    lazy    => 1,
-    builder => '_build_ServiceCode',
-);
-has 'ServiceDescription' => (
-    is      => 'ro',
-    isa     => 'Str',
-    lazy    => 1,
-    builder => '_build_ServiceDescription',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::Code]',
+    traits  => ['Serializable'],
+    documentation   => 'Service',
+    lazy_build      => 1,
 );
 has 'ReferenceNumber' => (
     is      => 'ro',
     isa     => 'Maybe[Business::UPS::Tracking::Element::ReferenceNumber]',
-    lazy    => 1,
-    builder => '_build_ReferenceNumber',
+    traits  => ['Serializable'],
+    documentation   => 'Reference number',
+    lazy_build      => 1,
 );
 has 'ShipmentIdentificationNumber' => (
     is      => 'ro',
     isa     => 'Str',
-    lazy    => 1,
-    builder => '_build_ShipmentIdentificationNumber',
+    traits  => ['Serializable'],
+    documentation   => 'Identification number',
+    lazy_build      => 1,
 );
 
 sub _build_ScheduledDelivery {
@@ -170,43 +172,31 @@ sub _build_ShipperNumber {
 sub _build_ShipperAddress {
     my ($self) = @_;
     
-    return Business::UPS::Tracking::Utils::build_address($self->xml,'Shipper/Address');
+    return $self->build_address('Shipper/Address');
 }
 
 sub _build_ShipmentWeight {
     my ($self) = @_;
     
-    my $node = $self->xml->findnodes('ShipmentWeight')->get_node(1);
-    return
-        unless $node;
-    return Business::UPS::Tracking::Element::Weight->new(
-        xml => $node
-    );
+    return $self->build_weight('ShipmentWeight');
 }
 
 sub _build_ShipToAddress {
     my ($self) = @_;
     
-    return Business::UPS::Tracking::Utils::build_address($self->xml,'ShipTo/Address');
+    return $self->build_address('ShipTo/Address');
 }
 
-
-sub _build_ServiceCode {
+sub _build_Service {
     my ($self) = @_;
     
-    return $self->xml->findvalue('Service/Code');
-}
-
-sub _build_ServiceDescription {
-    my ($self) = @_;
-    
-    return $self->xml->findvalue('Service/Description');
+    return $self->build_code('Service');
 }
 
 sub _build_ReferenceNumber {
     my ($self) = @_;
     
-    return Business::UPS::Tracking::Utils::build_referencenumber($self->xml,'ReferenceNumber');
+    return $self->build_referencenumber('ReferenceNumber');
 }
 
 sub _build_ShipmentIdentificationNumber {

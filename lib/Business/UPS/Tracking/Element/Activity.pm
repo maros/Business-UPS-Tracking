@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Element::Activity;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -9,6 +9,8 @@ use metaclass (
     error_class => "Business::UPS::Tracking::Exception",
 );
 use Moose;
+with qw(Business::UPS::Tracking::Role::Serialize
+    Business::UPS::Tracking::Role::Builder);
 
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
@@ -37,17 +39,19 @@ Original L<XML::LibXML::Node> node.
 A L<Business::UPS::Tracking::Element::Address> object representing the 
 location of the activity.
 
-=head2 ActivityLocationCode
+=head2 ActivityLocation
 
-=head2 ActivityLocationDescription
+Type of location. 
+Returns a L<Business::UPS::Tracking::Element::Code> object.
 
 =head2 SignedForByName
 
 =head2 StatusCode
 
-=head2 StatusTypeCode
+=head2 StatusType
 
-=head2 StatusTypeDescription
+Status code.
+Returns a L<Business::UPS::Tracking::Element::Code> object.
 
 =head2 DateTime
 
@@ -70,50 +74,55 @@ has 'xml' => (
 has 'ActivityLocationAddress' => (
     is      => 'ro',
     isa     => 'Maybe[Business::UPS::Tracking::Element::Address]',
-    lazy    => 1,
-    builder => '_build_ActivityLocationAddress',
+    traits  => ['Serializable'],
+    documentation   => 'Address',
+    lazy_build      => 1,
 );
-has 'ActivityLocationCode' => (
+has 'ActivityLocation' => (
     is      => 'ro',
-    isa     => 'Maybe[Str]',
-    lazy    => 1,
-    builder => '_build_ActivityLocationCode',
-);
-has 'ActivityLocationDescription' => (
-    is      => 'ro',
-    isa     => 'Maybe[Str]',
-    lazy    => 1,
-    builder => '_build_ActivityLocationDescription',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::Code]',
+    traits  => ['Serializable'],
+    lazy_build      => 1,
 );
 has 'SignedForByName' => (
     is      => 'ro',
     isa     => 'Maybe[Str]',
-    lazy    => 1,
-    builder => '_build_SignedForByName',
+    traits  => ['Serializable'],
+    lazy_build      => 1,
+    documentation   => 'Signed by',
 );
 has 'StatusCode' => (
     is      => 'ro',
     isa     => 'Maybe[Str]',
-    lazy    => 1,
-    builder => '_build_StatusCode',
+    lazy_build      => 1,
+    traits  => ['Serializable'],
+    documentation   => 'Satus code',
 );
-has 'StatusTypeCode' => (
+# MP ... Billing information
+# OR ... Original scan
+# DP ... Departure scan
+# AR ... Arival scan
+# LC ... Location scan
+# KS/KR ... Annahmeverweigerung
+# KM/KB ... Anlieferung (Bounce?)
+# 48 ... Failed 1st atempt
+# KX ... Failed 2nd atempt
+# 49 ... Failed 3rd atempt
+# UL ... Unload scan
+
+has 'StatusType' => (
     is      => 'ro',
-    isa     => 'Maybe[Str]',
-    lazy    => 1,
-    builder => '_build_StatusTypeCode',
-);
-has 'StatusTypeDescription' => (
-    is      => 'ro',
-    isa     => 'Maybe[Str]',
-    lazy    => 1,
-    builder => '_build_StatusTypeDescription',
+    isa     => 'Maybe[Business::UPS::Tracking::Element::Code]',
+    traits  => ['Serializable'],
+    lazy_build      => 1,
+    documentation   => 'Status',
 );
 has 'DateTime' => (
     is      => 'ro',
     isa     => 'Maybe[Date]',
-    lazy    => 1,
-    builder => '_build_DateTime',
+    traits  => ['Serializable'],
+    lazy_build      => 1,
+    documentation   => 'Date/time',
 );
 
 sub _build_DateTime {
@@ -126,16 +135,10 @@ sub _build_DateTime {
     return Business::UPS::Tracking::Utils::parse_time( $timestr, $date );
 }
 
-sub _build_StatusTypeDescription {
+sub _build_StatusType {
     my ($self) = @_;
-
-    return $self->xml->findvalue('Status/StatusType/Description');
-}
-
-sub _build_StatusTypeCode {
-    my ($self) = @_;
-
-    return $self->xml->findvalue('Status/StatusType/Code');
+    
+    return $self->build_code('Status/StatusType');
 }
 
 sub _build_StatusCode {
@@ -147,20 +150,13 @@ sub _build_StatusCode {
 sub _build_ActivityLocationAddress {
     my ($self) = @_;
 
-    return Business::UPS::Tracking::Utils::build_address( $self->xml,
-        'ActivityLocation/Address' );
+    return $self->build_address('ActivityLocation/Address' );
 }
 
-sub _build_ActivityLocationDescription {
+sub _build_ActivityLocation {
     my ($self) = @_;
-
-    return $self->xml->findvalue('ActivityLocation/Description');
-}
-
-sub _build_ActivityLocationCode {
-    my ($self) = @_;
-
-    return $self->xml->findvalue('ActivityLocation/Code');
+    
+    return $self->build_code('ActivityLocation' );
 }
 
 sub _build_SignedForByName {
@@ -196,7 +192,7 @@ Translates the L<StatusTypeCode> to a short description. Can return
 sub Status {
     my ($self) = @_;
     
-    given ($self->StatusTypeCode) {
+    given ($self->StatusType->Code) {
         when ('I') {
             return 'In Transit';
         }

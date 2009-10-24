@@ -1,6 +1,6 @@
-# ================================================================
+# ============================================================================
 package Business::UPS::Tracking::Element::ReferenceNumber;
-# ================================================================
+# ============================================================================
 use utf8;
 use 5.0100;
 
@@ -95,8 +95,6 @@ Reference number as supplied by the customer
 
 =cut
 
-use overload '""' => \&_print, fallback => 1;
-
 has 'xml' => (
     is       => 'rw',
     isa      => 'XML::LibXML::Node',
@@ -146,7 +144,7 @@ sub _build_referencenumber {
     return;
 }
 
-sub _print {
+sub serialize {
     my ($self) = @_;
     return $self->Value;
 }
