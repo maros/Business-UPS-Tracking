@@ -55,7 +55,7 @@ sub serialize {
             $value = $attribute->serialize->($self);
         }
         
-        $self->serialize_value(
+        $self->_serialize_value(
             table   => $table,
             value   => $value,
             name    => $name,
@@ -64,7 +64,7 @@ sub serialize {
     return $table;
 }
 
-sub serialize_value {
+sub _serialize_value {
     my ($self,%params) = @_;
     
     
@@ -84,7 +84,7 @@ sub serialize_value {
         when('ARRAY') {
             my $index = 1;
             foreach my $element (@$value) {
-                $self->serialize_value(
+                $self->_serialize_value(
                     table   => $table,
                     value   => $element,
                     name    => $name,
