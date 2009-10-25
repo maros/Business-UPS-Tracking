@@ -144,12 +144,18 @@ sub _build_referencenumber {
     return;
 }
 
+=head1 METHODS
+
+=head2 serialize 
+
+Returns the serialized object content
+
+=cut
+
 sub serialize {
     my ($self) = @_;
     return $self->Value;
 }
-
-=head1 METHODS
 
 =head2 Description
 

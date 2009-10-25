@@ -118,13 +118,11 @@ documentation for documentation how to catch and rethrow exeptions.
 
 The following exception classes are defined:
 
-=over
-
-=item * Business::UPS::Tracking::X
+=head3 Business::UPS::Tracking::X
 
 Basic exception class. All other exception classes inherit from this class.
 
-=item * Business::UPS::Tracking::X::HTTP
+=head3 Business::UPS::Tracking::X::HTTP
 
 HTTP error. The object provides additional parameters:
 
@@ -136,7 +134,7 @@ HTTP error. The object provides additional parameters:
 
 =back
 
-=item * Business::UPS::Tracking::X::UPS
+=head3 Business::UPS::Tracking::X::UPS
 
 UPS error message.The object provides additional parameters:
 
@@ -152,20 +150,20 @@ UPS error message.The object provides additional parameters:
 
 =back
 
-=item * Business::UPS::Tracking::X::XML
+=head3 Business::UPS::Tracking::X::XML
 
 XML parser or schema error.
 
-=item * Business::UPS::Tracking::X::Class
+=head3 Business::UPS::Tracking::X::CLASS
 
 Error originating from the wrong usage of a method/accessor/class. Most
 commonly this will be thrown because of a failing type constraint.
 
 =back
 
-=head2 Accessor / method nameing
+=head2 Accessor / method naming
 
-The nameing of the methods and accessors tries to stick close to the names
+The naming of the methods and accessors tries to stick close to the names
 used by the UPS webservice. All accessors containg uppercase letters access
 xml data. Lowercase-only accessors and methods are used for utility 
 functions.
@@ -349,7 +347,7 @@ this module.
 
 =head1 SEE ALSO
 
-Download the UPS ""OnLine® Tools Tracking Developer Guide"" and get a
+Download the UPS "OnLine® Tools Tracking Developer Guide" and get a
 developer key at L<http://www.ups.com/e_comm_access/gettools_index?loc=en_US>. 
 Please check the "Developer Guide" for more detailed documentation on the
 various fields.

@@ -206,9 +206,24 @@ sub _build_ShipmentIdentificationNumber {
         || undef;
 }
 
+=head1 METHODS
+
+=head2 ShipmentType
+
+Returns the shipment type. Either 'Freight' or 'Small Package'
+
+=cut
+
 sub ShipmentType {
     Business::UPS::Tracking::X->throw("__PACKAGE__ is an abstract class")
 }
+
+=head2 meta
+
+Moose meta method
+
+=cut
+
 
 __PACKAGE__->meta->make_immutable;
 
