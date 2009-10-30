@@ -14,6 +14,7 @@ use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking;
 use MooseX::Getopt::OptionTypeMap;
 use Business::UPS::Tracking::Meta::Attribute::Trait::Serializable;
+use Encode;
 
 our $VERSION = $Business::UPS::Tracking::VERISON;
 
@@ -31,7 +32,7 @@ Business::UPS::Tracking::Utils - Utility functions
 
 This module provides some basic utility functions for 
 L<Business::UPS::Tracking> and defines some Moose type constraints and 
-coercions as well as the exception classes.
+coercions.
  
 =head1 FUNCTIONS
 
@@ -45,12 +46,19 @@ coerce 'XMLDocument'
     => from 'Str' 
     => via {
         my $xml = $_;
-        my $parser = XML::LibXML->new();
+        $xml = decode("iso-8859-1", $xml);
+        
+        my $parser = XML::LibXML->new(
+            #encoding    => 'iso-8859-15'
+        );
         my $doc = eval {
             $parser->parse_string($xml);
         };
         if (! $doc) {
-            Business::UPS::Tracking::X::XML->throw($@ || 'Unknown error parsing xml document');
+            Business::UPS::Tracking::X::XML->throw(
+                error   => $@ || 'Unknown error parsing xml document',
+                xml     => $xml,
+            );
         }
         return $doc;
     };
@@ -139,7 +147,10 @@ sub parse_date {
         );
     };
     if (! $date || $@) {
-        Business::UPS::Tracking::X::XML->throw("Invalid date string '$datestr' : $@");
+        Business::UPS::Tracking::X::XML->throw(
+            error   => "Invalid date string: $@",
+            xml     => $datestr,
+        );
     }
     return $date;
 }
@@ -174,7 +185,10 @@ sub parse_time {
         return 1;
     };
     if (! $success || $@) {
-        Business::UPS::Tracking::X::XML->throw("Invalid time string '$timestr' : $@");
+        Business::UPS::Tracking::X::XML->throw(
+            error   => "Invalid time string: $@",
+            xml     => $timestr,
+        );
     }
 
     return $datetime;
