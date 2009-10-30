@@ -57,12 +57,6 @@ Returns a L<Business::UPS::Tracking::Element::Code> object.
 
 L<DateTime> object.
 
-=head1 METHODS
-
-=head2 meta
-
-Moose meta method
-
 =cut
 
 has 'xml' => (

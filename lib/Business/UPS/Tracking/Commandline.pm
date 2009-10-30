@@ -26,12 +26,41 @@ Business::UPS::Tracking::Commandline - Commandline interface to UPS tracking
 =head1 SYNOPSIS
 
   my $commandline = Business::UPS::Tracking::Commandline->new_with_options;
+  # Params are taken from @ARGV
   $commandline->execute; 
 
 =head1 DESCRIPTION
 
-This script allows Business::UPS::Tracking being called from a commandline
-script. (See L<bin/ups_tracking>)
+This class allows Business::UPS::Tracking being called from a commandline
+script using L<MooseX::Getopt>. (See L<ups_tracking>)
+
+=head1 ACCESSORS
+
+=head2 Inherited
+
+All accessors from L<Business::UPS::Tracking::Request>
+
+=head2 verbose
+
+Be verbose
+
+=head2 config
+
+Path to the webservice configuration file. Defaults to C<~/.ups_tracking>
+
+Example configuration file:
+
+ <?xml version="1.0"?>
+ <UPS_tracing_webservice_config>
+    <AccessLicenseNumber>1CFFED5A5E91B17</AccessLicenseNumber>
+    <UserId>myupsuser</UserId>
+    <Password>secret</Password>
+ </UPS_tracing_webservice_config>
+
+=head2 tracking
+
+L<Business::UPS::Tracking> object. If not supplied the object will be
+built from data in C<config>
 
 =head1 METHODS
 
@@ -70,6 +99,8 @@ MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
     'TrackingNumber' => '=s',
     'CountryCode'    => '=s',
 );
+
+__PACKAGE__->meta->make_immutable;
 
 sub execute {
     my $self = shift;

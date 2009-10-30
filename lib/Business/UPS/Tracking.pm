@@ -157,7 +157,18 @@ XML parser or schema error.
 =head3 Business::UPS::Tracking::X::CLASS
 
 Error originating from the wrong usage of a method/accessor/class. Most
-commonly this will be thrown because of a failing type constraint.
+commonly this will be thrown because of a failing type constraint. 
+
+=over
+
+=item * method 
+=item * depth 
+=item * evaltext 
+=item * sub_name 
+=item * last_error 
+=item * sub 
+=item * is_require 
+=item * has_args
 
 =back
 

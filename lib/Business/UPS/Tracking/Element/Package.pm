@@ -67,12 +67,6 @@ UPS tracking number.
 
 Returns a L<Business::UPS::Tracking::Element::Address> object.
 
-=head1 METHODS
-
-=head2 meta
-
-Moose meta method
-
 =cut
 
 has 'xml' => (

@@ -134,14 +134,6 @@ sub serialize {
     return join("\n",@address);
 }
 
-=head1 METHODS
-
-=head2 meta
-
-Moose meta method
-
-=cut
-
 __PACKAGE__->meta->make_immutable;
 
 1;
