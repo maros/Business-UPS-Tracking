@@ -28,8 +28,8 @@ Business::UPS::Tracking::Response - A response from the UPS webservice
 =head1 SYNOPSIS
 
   my $response = $request->run();
-  my $shipment = $response->shipment;
-  $shipment->ScheduledDelivery
+  my $shipment = $response->shipment->[0];
+  say $shipment->ScheduledDelivery;
   
 =head1 DESCRIPTION
 
@@ -58,7 +58,7 @@ L<Business::UPS::Tracking::Shipment::Freight> objects)
 
 =head2 CustomerContext
 
-Customer context supplied in the request
+Customer context as supplied in the request
 
 =cut
 
@@ -102,8 +102,10 @@ sub BUILD {
 #    }
     # LOGGER
 
-    Business::UPS::Tracking::X::XML->throw('/TrackResponse/ResponseStatusCode missing')
-        unless defined $response_status;
+    Business::UPS::Tracking::X::XML->throw(
+        error   => '/TrackResponse/ResponseStatusCode missing',
+        xml     => $xml->find('/TrackResponse/Response')->get_node(1)->toString,
+    ) unless defined $response_status;
 
     # Check for error
     if ($response_status == 0) {
@@ -133,7 +135,10 @@ sub BUILD {
                 $shipment_class = 'Business::UPS::Tracking::Shipment::Freight';
             }
             default {
-                Business::UPS::Tracking::X::XML->throw("Unknown shipment type: $shipment_type");
+                Business::UPS::Tracking::X::XML->throw(
+                    error   => "Unknown shipment type: $shipment_type",
+                    xml     => $shipment_type,
+                );
             }
         }
         

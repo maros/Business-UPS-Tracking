@@ -42,6 +42,7 @@ use Exception::Class(
     'Business::UPS::Tracking::X::XML'  => {
         isa           => 'Business::UPS::Tracking::X',    
         description   => 'Malformed response xml',
+        fields        => [qw(xml)]
     },
     'Business::UPS::Tracking::X::CLASS'  => {
         isa           => 'Business::UPS::Tracking::X',    
