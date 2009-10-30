@@ -90,44 +90,41 @@ DESCRIPTION
 
     The following exception classes are defined:
 
-    *   Business::UPS::Tracking::X
+   Business::UPS::Tracking::X
+    Basic exception class. All other exception classes inherit from this
+    class.
 
-        Basic exception class. All other exception classes inherit from this
-        class.
+   Business::UPS::Tracking::X::HTTP
+    HTTP error. The object provides additional parameters:
 
-    *   Business::UPS::Tracking::X::HTTP
+    *   http_response : HTTP::Response object
 
-        HTTP error. The object provides additional parameters:
+    *   request : Business::UPS::Tracking::Request object
 
-        *   http_response : HTTP::Response object
+   Business::UPS::Tracking::X::UPS
+    UPS error message.The object provides additional parameters:
 
-        *   request : Business::UPS::Tracking::Request object
+    *   code : UPS error code
 
-    *   Business::UPS::Tracking::X::UPS
+    *   severity : Error severity 'hard' or 'soft'
 
-        UPS error message.The object provides additional parameters:
+    *   context : XML::LibXML::Node object containing the whole error
+        response.
 
-        *   code : UPS error code
+    *   request : Business::UPS::Tracking::Request object
 
-        *   severity : Error severity 'hard' or 'soft'
+   Business::UPS::Tracking::X::XML
+    XML parser or schema error.
 
-        *   context : XML::LibXML::Node object containing the whole error
-            response.
+   Business::UPS::Tracking::X::CLASS
+    Error originating from the wrong usage of a method/accessor/class. Most
+    commonly this will be thrown because of a failing type constraint.
 
-        *   request : Business::UPS::Tracking::Request object
+    *   method =item * depth =item * evaltext =item * sub_name =item *
+        last_error =item * sub =item * is_require =item * has_args
 
-    *   Business::UPS::Tracking::X::XML
-
-        XML parser or schema error.
-
-    *   Business::UPS::Tracking::X::Class
-
-        Error originating from the wrong usage of a method/accessor/class.
-        Most commonly this will be thrown because of a failing type
-        constraint.
-
-  Accessor / method nameing
-    The nameing of the methods and accessors tries to stick close to the
+  Accessor / method naming
+    The naming of the methods and accessors tries to stick close to the
     names used by the UPS webservice. All accessors containg uppercase
     letters access xml data. Lowercase-only accessors and methods are used
     for utility functions.
@@ -211,7 +208,7 @@ COPYRIGHT
     with this module.
 
 SEE ALSO
-    Download the UPS ""OnLine® Tools Tracking Developer Guide"" and get a
+    Download the UPS "OnLine® Tools Tracking Developer Guide" and get a
     developer key at
     <http://www.ups.com/e_comm_access/gettools_index?loc=en_US>. Please
     check the "Developer Guide" for more detailed documentation on the

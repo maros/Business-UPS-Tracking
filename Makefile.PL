@@ -21,7 +21,8 @@ requires        'LWP::UserAgent'        => 0;
 requires        'Text::SimpleTable'     => 0;
 requires        'MooseX::Getopt'        => 0;
 requires        'Path::Class'           => 0;
-unless (can_use('IO::Socket::SSL')) {
+requires        'Encode'                => 0;
+unless (can_use('Crypt::SSLeay') || can_use('IO::Socket::SSL')) {
     requires    'Crypt::SSLeay'         => 0;
 }
 requires        'XML::LibXML'           => 0;
