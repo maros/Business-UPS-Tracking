@@ -21,6 +21,7 @@ B<ups_tracking> [options]
  Options:
     --verbose                           Be verbose
     --config                            UPS tracking webservice access config file
+    --help                              Display help text
     
     --TrackingNumber                    Shipment tracking number
     --ShipperNumber                     Shipper UPS customernumber
@@ -56,6 +57,8 @@ config file, which should be located at ~/.ups_tracking
 
 =cut
 
+binmode 'STDOUT',':utf8';
+
 eval { 
     Business::UPS::Tracking::Commandline->new_with_options->execute; 
 };
@@ -75,6 +78,11 @@ if ( my $e = Exception::Class->caught ) {
                 $table->row('Message',$e->full_message);
                 $table->row('UPS Error Code',$e->code );
                 $table->row('Severirty',$e->severity );
+            }
+            when ( $_->isa('Business::UPS::Tracking::X::XML') ) {
+                $table->row('Type','XML error');
+                $table->row('Message',$e->message);
+                $table->row('XML',$e->xml );
             }
             default {
                 $table->row('Type','Internal error');
