@@ -4,11 +4,8 @@ package Business::UPS::Tracking::Utils;
 use utf8;
 use 5.0100;
 
-use metaclass (
-    metaclass   => "Moose::Meta::Class",
-    error_class => "Business::UPS::Tracking::Exception",
-);
-use Moose;
+use strict;
+use warnings;
 
 use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking;
@@ -37,8 +34,6 @@ coercions.
 =head1 FUNCTIONS
 
 =cut
-
-
 
 subtype 'XMLDocument' => as class_type('XML::LibXML::Document');
 
@@ -116,8 +111,6 @@ subtype 'CountryCode'
     => as 'Str'
     => where { m/^[A-Z]{2}$/ }
     => message { "Must be an uppercase ISO 3166-1 alpha-2 code" };
-
-
 
 =head3 parse_date
 
@@ -214,7 +207,5 @@ sub escape_xml {
     
     return $string;
 }
-
-__PACKAGE__->meta->make_immutable;
 
 1;
