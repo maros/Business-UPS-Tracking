@@ -17,6 +17,7 @@ sub import {
     no strict 'refs';
     *{ $caller . '::tracking' }    = \&tracking;
     *{ $caller . '::testrequest' } = \&testrequest;
+    *{ $caller . '::testcheck' } = \&testcheck;
 }
 
 sub tracking {
@@ -25,6 +26,17 @@ sub tracking {
         Password            => 'secret',
         AccessLicenseNumber => '8C44FC5D5E88C868',
     );
+}
+
+sub testcheck {
+    my ($skiptests) = @_;
+    
+    my $tracking = tracking();
+    my $url = $tracking->url();
+    $url =~ s/^(https?:\/\/.+\/).+$/$1/;
+    my $response = $tracking->_ua()->get($url);
+    
+    return $response->is_success;
 }
 
 sub testrequest {
