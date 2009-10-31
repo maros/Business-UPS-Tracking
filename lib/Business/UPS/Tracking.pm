@@ -16,7 +16,7 @@ use Business::UPS::Tracking::Request;
 
 use version;
 
-our $VERSION = version->new('1.03');
+our $VERSION = version->new('1.04');
 our $AUTHORITY = 'cpan:MAROS';
 our $CHECKSUM = 1;
 
@@ -368,4 +368,4 @@ implementation.
 
 =cut
 
-'Where is my "30 HP NorTrac Bulldozer" I ordered at amazon recently? (http://www.amazon.com/30-HP-NorTrac-Bulldozer-Backhoe/dp/B000EIWSN0)';
+'Where is my "30 HP NorTrac Bulldozer" I ordered at Amazon recently? (http://www.amazon.com/30-HP-NorTrac-Bulldozer-Backhoe/dp/B000EIWSN0)';

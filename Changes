@@ -1,5 +1,13 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.04 Sat Oct 31 2009
+    - Skip online tests if there is no connection to the UPS webservice
+    - Do not use Moose in B::U::T::Utils
+    - Commandline: Utf8 output
+    - Better reporting on XML exceptions
+    - Fix XML enocding issues
+    - Documentation (podcoverage, typos, extended, style, ..)
+
 1.03 Sat Oct 24 2009
     - Add checksum check for tracking numbers
     - Moose exceptions are thrown using Business::UPS::Tracking::X::CLASS
