@@ -6,7 +6,7 @@ use 5.010;
 use Business::UPS::Tracking::Commandline;
 use Text::SimpleTable;
 
-$Business::UPS::Tracking::CHECKSUM = 0;
+#$Business::UPS::Tracking::CHECKSUM = 0;
 
 =encoding utf8
 
