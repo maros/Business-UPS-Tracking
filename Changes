@@ -1,5 +1,9 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.05 Sat Feb 20 2010
+    - Fix failing tests on some cpan testers plattforms
+    - Refactor handling of UPS webservice credentials
+
 1.04 Sat Oct 31 2009
     - Skip online tests if there is no connection to the UPS webservice
     - Do not use Moose in B::U::T::Utils
@@ -31,4 +35,4 @@ Revision history fon Perl module Business::UPS::Tracking
     - Use isa => 'Maybe[Type]' for all accessors that might be undefined
 
 1.00 Sun Jul 05 2009
-    - Inital version
+    - Initial version
