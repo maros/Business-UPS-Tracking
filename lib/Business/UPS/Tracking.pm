@@ -9,6 +9,7 @@ use metaclass (
     error_class => "Business::UPS::Tracking::Exception",
 );
 use Moose;
+with qw(Business::UPS::Tracking::Role::Base);
 
 use LWP::UserAgent;
 use Business::UPS::Tracking::Utils;
@@ -225,6 +226,21 @@ UPS account username
 
 UPS account password
 
+=head2 config
+
+Optionally you can retrieve all or some UPS webservice credentials from a
+configuration file. This accessor holds the path to this file.
+Defaults to C<~/.ups_tracking>
+
+Example configuration file:
+
+ <?xml version="1.0"?>
+ <UPS_tracing_webservice_config>
+    <AccessLicenseNumber>1CFFED5A5E91B17</AccessLicenseNumber>
+    <UserId>myupsuser</UserId>
+    <Password>secret</Password>
+ </UPS_tracing_webservice_config>
+
 =head2 retry_http
 
 Number of retries if http errors occur
@@ -245,41 +261,24 @@ Automatically generated
 
 =cut
 
-has 'AccessLicenseNumber' => (
-    is       => 'rw',
-    required => 1,
-    isa      => 'Str',
-    documentation   => 'UPS webservice license number',
-);
-has 'UserId' => (
-    is       => 'rw',
-    required => 1,
-    isa      => 'Str',
-    documentation   => 'UPS webservice user id',
-);
-has 'Password' => (
-    is       => 'rw',
-    required => 1,
-    isa      => 'Str',
-    documentation   => 'UPS webservice password',
-);
 has 'retry_http' => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 0,
+    is          => 'rw',
+    isa         => 'Int',
+    default     => 0,
     documentation   => 'Number of retries if HTTP erros occur [Default 0]',
 );
 has 'url' => (
-    is      => 'rw',
-    default => 'https://wwwcie.ups.com/ups.app/xml/Track',
+    is          => 'rw',
+    default     => 'https://wwwcie.ups.com/ups.app/xml/Track',
     documentation   => 'UPS webservice url',
 );
 has '_ua' => (
-    is      => 'rw',
-    lazy    => 1,
-    isa     => 'LWP::UserAgent',
-    builder => '_build_ua',
+    is          => 'rw',
+    lazy        => 1,
+    isa         => 'LWP::UserAgent',
+    builder     => '_build_ua',
 );
+
 
 sub _build_ua {
     my ($self) = @_;

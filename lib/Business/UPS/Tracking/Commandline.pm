@@ -11,11 +11,9 @@ use metaclass (
 use Moose;
 
 extends qw(Business::UPS::Tracking::Request);
-with qw(MooseX::Getopt);
+with qw(MooseX::Getopt Business::UPS::Tracking::Role::Base);
 
 our $VERSION = $Business::UPS::Tracking::VERISON;
-
-use Path::Class::File;
 
 =encoding utf8
 
@@ -44,9 +42,23 @@ All accessors from L<Business::UPS::Tracking::Request>
 
 Be verbose
 
+=head2 AccessLicenseNumber
+
+UPS tracking service access license number
+
+=head2 UserId
+
+UPS account username
+
+=head2 Password
+
+UPS account password
+
 =head2 config
 
-Path to the webservice configuration file. Defaults to C<~/.ups_tracking>
+Optionally you can retrieve all or some UPS webservice credentials from a
+configuration file. This accessor holds the path to this file.
+Defaults to C<~/.ups_tracking>
 
 Example configuration file:
 
@@ -56,11 +68,8 @@ Example configuration file:
     <UserId>myupsuser</UserId>
     <Password>secret</Password>
  </UPS_tracing_webservice_config>
-
-=head2 tracking
-
-L<Business::UPS::Tracking> object. If not supplied the object will be
-built from data in C<config>
+ 
+=cut
 
 =head1 METHODS
 
@@ -73,26 +82,17 @@ Performs a UPS webservice query/request.
 =cut
 
 has 'tracking' => (
-    is       => 'rw',
-    required => 0,
-    isa      => 'Business::UPS::Tracking',
-    traits   => [ 'NoGetopt' ],
-    lazy_build     => 1,
+    is          => 'rw',
+    required    => 0,
+    isa         => 'Business::UPS::Tracking',
+    traits      => [ 'NoGetopt' ],
+    lazy_build  => 1,
 );
 
 has 'verbose' => (
-    is       => 'rw',
-    isa      => 'Bool',
+    is          => 'rw',
+    isa         => 'Bool',
     documentation   => 'Be verbose',
-);
-
-has 'config' => (
-    is       => 'rw',
-    isa      => 'Str',
-    default  => sub {
-        Path::Class::File->new( $ENV{HOME}, '.ups_tracking' )->stringify;
-    },
-    documentation => 'UPS tracking webservice access config file'
 );
 
 MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
@@ -125,26 +125,14 @@ sub execute {
 sub _build_tracking {
     my ($self) = @_;
     
-    unless (-e $self->config) {
-        Business::UPS::Tracking::X->throw('Could not find UPS tracking webservice access config file at "'.$self->config.'"');
-    }
-    
-    my $parser = XML::LibXML->new();
-    
-    my $config = eval {
-        my $document = $parser->parse_file( $self->config );
-        my $root = $document->documentElement();
-        
-        my $params = {};
-        foreach my $param ($root->childNodes) {
-            $params->{$param->nodeName} = $param->textContent; 
+    my %params = ();
+    foreach my $field (qw(AccessLicenseNumber UserId Password)) {
+        my $predicate = '_has_'.$field;
+        if ($self->$predicate) {
+            $params{$field} = $self->$field;
         }
-        return $params;
-    };
-    if (! $config) {
-        Business::UPS::Tracking::X->throw('Could not open/parse UPS tracking webservice access config file at '.$self->config.' : '.$@);
     }
     
-    return Business::UPS::Tracking->new(%$config);
+    return Business::UPS::Tracking->new(\%params);
 }
 1;

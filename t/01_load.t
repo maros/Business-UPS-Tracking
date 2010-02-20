@@ -1,6 +1,6 @@
 #!perl -T
 
-use Test::More tests => 16;
+use Test::More tests => 17;
 
 use_ok( 'Business::UPS::Tracking' );
 use_ok( 'Business::UPS::Tracking::Utils' );
@@ -16,5 +16,6 @@ use_ok( 'Business::UPS::Tracking::Element::ReferenceNumber' );
 use_ok( 'Business::UPS::Tracking::Element::Package' );
 use_ok( 'Business::UPS::Tracking::Element::Code' );
 use_ok( 'Business::UPS::Tracking::Role::Builder' );
+use_ok( 'Business::UPS::Tracking::Role::Base' );
 use_ok( 'Business::UPS::Tracking::Role::Serialize' );
 use_ok( 'Business::UPS::Tracking::Commandline' );
