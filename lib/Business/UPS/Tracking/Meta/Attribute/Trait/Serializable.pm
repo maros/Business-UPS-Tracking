@@ -5,7 +5,7 @@ use utf8;
 use 5.0100;
 
 use Moose::Role;
-use warnings;
+use strict; # Make cpants happy
 
 has 'serialize' => (
     is          => 'rw',
