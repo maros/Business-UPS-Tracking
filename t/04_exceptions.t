@@ -41,7 +41,7 @@ SKIP:{
     
     if (my $e = Business::UPS::Tracking::X::HTTP->caught) {
         pass('We have a Business::UPS::Tracking::X::HTTP exeption');
-        like($e->http_response->as_string ,qr/^500\s/,'HTTP response is ok');
+        like($e->http_response->as_string ,qr/^50[03]\s/,'HTTP response is ok');
     } else {
         fail('Did not get a Business::UPS::Tracking::X::HTTP exception');
         fail('Cannot check exception');
