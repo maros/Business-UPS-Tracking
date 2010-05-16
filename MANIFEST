@@ -25,6 +25,7 @@ lib/Business/UPS/Tracking/Exception.pm
 lib/Business/UPS/Tracking/Meta/Attribute/Trait/Serializable.pm
 lib/Business/UPS/Tracking/Request.pm
 lib/Business/UPS/Tracking/Response.pm
+lib/Business/UPS/Tracking/Role/Base.pm
 lib/Business/UPS/Tracking/Role/Builder.pm
 lib/Business/UPS/Tracking/Role/Serialize.pm
 lib/Business/UPS/Tracking/Shipment.pm
