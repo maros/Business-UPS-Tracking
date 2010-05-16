@@ -113,8 +113,8 @@ Business::UPS::Tracking - Interface to the UPS tracking webservice
 =head2 Exception Handling
 
 If anythis goes wrong Business::UPS::Tracking throws an exception. Exceptions 
-are allways L<Exception::Class> object which contain stuctured information
-about the error. Please refer to the synopsis or L<Exception::Class> 
+are always L<Exception::Class> objects which contain structured information
+about the error. Please refer to the synopsis or to the L<Exception::Class> 
 documentation for documentation how to catch and rethrow exeptions.
 
 The following exception classes are defined:

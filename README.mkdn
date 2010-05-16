@@ -92,8 +92,8 @@ Business::UPS::Tracking - Interface to the UPS tracking webservice
 ## Exception Handling
 
 If anythis goes wrong Business::UPS::Tracking throws an exception. Exceptions 
-are allways [Exception::Class](http://search.cpan.org/search?mode=module&query=Exception::Class) object which contain stuctured information
-about the error. Please refer to the synopsis or [Exception::Class](http://search.cpan.org/search?mode=module&query=Exception::Class) 
+are always [Exception::Class](http://search.cpan.org/perldoc?Exception::Class) objects which contain structured information
+about the error. Please refer to the synopsis or to the [Exception::Class](http://search.cpan.org/perldoc?Exception::Class) 
 documentation for documentation how to catch and rethrow exeptions.
 
 The following exception classes are defined:
@@ -106,9 +106,9 @@ Basic exception class. All other exception classes inherit from this class.
 
 HTTP error. The object provides additional parameters:
 
-- * http_response : [HTTP::Response](http://search.cpan.org/search?mode=module&query=HTTP::Response) object
+- * http_response : [HTTP::Response](http://search.cpan.org/perldoc?HTTP::Response) object
 
-- * request : [Business::UPS::Tracking::Request](http://search.cpan.org/search?mode=module&query=Business::UPS::Tracking::Request) object
+- * request : [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object
 
 ### Business::UPS::Tracking::X::UPS
 
@@ -118,9 +118,9 @@ UPS error message.The object provides additional parameters:
 
 - * severity : Error severity 'hard' or 'soft'
 
-- * context : [XML::LibXML::Node](http://search.cpan.org/search?mode=module&query=XML::LibXML::Node) object containing the whole error response.
+- * context : [XML::LibXML::Node](http://search.cpan.org/perldoc?XML::LibXML::Node) object containing the whole error response.
 
-- * request : [Business::UPS::Tracking::Request](http://search.cpan.org/search?mode=module&query=Business::UPS::Tracking::Request) object
+- * request : [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object
 
 ### Business::UPS::Tracking::X::XML
 
@@ -159,7 +159,7 @@ information.
 
  my $tracking = Business::UPS::Tracking->new(%params);
 
-Create a `Business::UPS::Tracking` object. See [ACCESSORS](http://search.cpan.org/search?mode=module&query=ACCESSORS) for available
+Create a `Business::UPS::Tracking` object. See [ACCESSORS](http://search.cpan.org/perldoc?ACCESSORS) for available
 parameters.
 
 ## access_request
@@ -170,14 +170,14 @@ UPS access request.
 
  my $request = $tracking->request(%request_params);
 
-Returns a [Business::UPS::Tracking::Request](http://search.cpan.org/search?mode=module&query=Business::UPS::Tracking::Request) object. 
+Returns a [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object. 
 
 ## request_run
 
  my $response = $tracking->request_run(%request_params);
 
-Generates a [Business::UPS::Tracking::Request](http://search.cpan.org/search?mode=module&query=Business::UPS::Tracking::Request) object and imideately 
-executes it, returning a [Business::UPS::Tracking::Response](http://search.cpan.org/search?mode=module&query=Business::UPS::Tracking::Response) object. 
+Generates a [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object and imideately 
+executes it, returning a [Business::UPS::Tracking::Response](http://search.cpan.org/perldoc?Business::UPS::Tracking::Response) object. 
 
 # ACCESSORS
 
@@ -193,6 +193,21 @@ UPS account username
 
 UPS account password
 
+## config
+
+Optionally you can retrieve all or some UPS webservice credentials from a
+configuration file. This accessor holds the path to this file.
+Defaults to `~/.ups_tracking`
+
+Example configuration file:
+
+ <?xml version="1.0"?>
+ <UPS_tracing_webservice_config>
+    <AccessLicenseNumber>1CFFED5A5E91B17</AccessLicenseNumber>
+    <UserId>myupsuser</UserId>
+    <Password>secret</Password>
+ </UPS_tracing_webservice_config>
+
 ## retry_http
 
 Number of retries if http errors occur
@@ -207,7 +222,7 @@ Defaults to https://wwwcie.ups.com/ups.app/xml/Track
 
 ## _ua
 
-[LWP::UserAgent](http://search.cpan.org/search?mode=module&query=LWP::UserAgent) object.
+[LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent) object.
 
 Automatically generated
 
@@ -250,5 +265,5 @@ developer key at <http://www.ups.com/e_comm_access/gettools_index?loc=en_US>.
 Please check the "Developer Guide" for more detailed documentation on the
 various fields.
 
-The [WebService::UPS::TrackRequest](http://search.cpan.org/search?mode=module&query=WebService::UPS::TrackRequest) provides an alternative simpler 
+The [WebService::UPS::TrackRequest](http://search.cpan.org/perldoc?WebService::UPS::TrackRequest) provides an alternative simpler 
 implementation.

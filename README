@@ -83,8 +83,8 @@ DESCRIPTION
 
   Exception Handling
     If anythis goes wrong Business::UPS::Tracking throws an exception.
-    Exceptions are allways Exception::Class object which contain stuctured
-    information about the error. Please refer to the synopsis or
+    Exceptions are always Exception::Class objects which contain structured
+    information about the error. Please refer to the synopsis or to the
     Exception::Class documentation for documentation how to catch and
     rethrow exeptions.
 
@@ -164,6 +164,20 @@ ACCESSORS
 
   Password
     UPS account password
+
+  config
+    Optionally you can retrieve all or some UPS webservice credentials from
+    a configuration file. This accessor holds the path to this file.
+    Defaults to "~/.ups_tracking"
+
+    Example configuration file:
+
+     <?xml version="1.0"?>
+     <UPS_tracing_webservice_config>
+        <AccessLicenseNumber>1CFFED5A5E91B17</AccessLicenseNumber>
+        <UserId>myupsuser</UserId>
+        <Password>secret</Password>
+     </UPS_tracing_webservice_config>
 
   retry_http
     Number of retries if http errors occur
