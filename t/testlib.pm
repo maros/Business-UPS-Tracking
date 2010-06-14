@@ -36,7 +36,7 @@ sub testcheck {
     $url =~ s/^(https?:\/\/.+\/).+$/$1/;
     my $response = $tracking->_ua()->get($url);
     
-    return $response->is_success;
+    return $response->is_success || $response->code == 404;
 }
 
 sub testrequest {
