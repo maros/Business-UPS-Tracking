@@ -4,11 +4,8 @@ package Business::UPS::Tracking::Request;
 use utf8;
 use 5.0100;
 
-use metaclass (
-    metaclass   => "Moose::Meta::Class",
-    error_class => "Business::UPS::Tracking::Exception",
-);
 use Moose;
+__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
 use DateTime;
 use XML::LibXML;

@@ -4,6 +4,8 @@ package Business::UPS::Tracking::Exception;
 use utf8;
 use 5.0100;
 
+use base qw(Moose::Error::Default);
+
 sub new {
     my ( $self, %params ) = @_;
     

@@ -4,12 +4,9 @@ package Business::UPS::Tracking;
 use utf8;
 use 5.0100;
 
-use metaclass (
-    metaclass   => "Moose::Meta::Class",
-    error_class => "Business::UPS::Tracking::Exception",
-);
 use Moose;
 with qw(Business::UPS::Tracking::Role::Base);
+__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
 use LWP::UserAgent;
 use Business::UPS::Tracking::Utils;

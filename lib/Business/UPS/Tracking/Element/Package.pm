@@ -4,13 +4,10 @@ package Business::UPS::Tracking::Element::Package;
 use utf8;
 use 5.0100;
 
-use metaclass (
-    metaclass   => "Moose::Meta::Class",
-    error_class => "Business::UPS::Tracking::Exception",
-);
 use Moose;
 with qw(Business::UPS::Tracking::Role::Serialize
     Business::UPS::Tracking::Role::Builder);
+__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
