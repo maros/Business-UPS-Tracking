@@ -1,5 +1,10 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.06 Mon Jun 14 2010
+    - Fix broken/changed webservice availability tests
+    - Fix metaclass errors with latest Moose version
+    - Dist housekeeping
+
 1.05 Sat Feb 20 2010
     - Fix failing tests on some cpan testers plattforms
     - Refactor handling of UPS webservice credentials

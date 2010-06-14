@@ -14,7 +14,7 @@ use Business::UPS::Tracking::Request;
 
 use version;
 
-our $VERSION = version->new('1.05');
+our $VERSION = version->new('1.06');
 our $AUTHORITY = 'cpan:MAROS';
 our $CHECKSUM = 1;
 
