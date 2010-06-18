@@ -93,8 +93,8 @@ has 'verbose' => (
 );
 
 MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
-    'TrackingNumber' => '=s',
-    'CountryCode'    => '=s',
+    'Business::UPS::Tracking::Type::TrackingNumber' => '=s',
+    'Business::UPS::Tracking::Type::CountryCode'    => '=s',
 );
 
 __PACKAGE__->meta->make_immutable;

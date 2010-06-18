@@ -79,14 +79,14 @@ has 'xml' => (
 );
 has 'ScheduledDelivery' => (
     is      => 'ro',
-    isa     => 'Maybe[Date]',
+    isa     => 'Maybe[Business::UPS::Tracking::Type::Date]',
     traits  => ['Serializable'],
     lazy_build      => 1,
     documentation   => 'Scheduled delivery date',
 );
 has 'PickupDate' => (
     is      => 'ro',
-    isa     => 'Maybe[Date]',
+    isa     => 'Maybe[Business::UPS::Tracking::Type::Date]',
     traits  => ['Serializable'],
     documentation   => 'Pickup date',
     lazy_build      => 1,

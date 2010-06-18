@@ -110,7 +110,7 @@ has 'StatusType' => (
 );
 has 'DateTime' => (
     is      => 'ro',
-    isa     => 'Maybe[Date]',
+    isa     => 'Maybe[Business::UPS::Tracking::Type::Date]',
     traits  => ['Serializable'],
     lazy_build      => 1,
     documentation   => 'Date/time',

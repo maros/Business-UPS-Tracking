@@ -124,7 +124,7 @@ has 'tracking' => (
 );
 has 'TrackingNumber' => (
     is  => 'rw',
-    isa => 'TrackingNumber',
+    isa => 'Business::UPS::Tracking::Type::TrackingNumber',
     documentation   => 'Shipment tracking number',
 );
 has 'ReferenceNumber' => (
@@ -144,7 +144,7 @@ has 'DestinationPostalCode' => (
 );
 has 'DestinationCountryCode' => (
     is  => 'rw',
-    isa => 'CountryCode',
+    isa => 'Business::UPS::Tracking::Type::CountryCode',
     documentation   => 'Shipment destination country code',
 );
 has 'OriginPostalCode' => (
@@ -154,7 +154,7 @@ has 'OriginPostalCode' => (
 );
 has 'OriginCountryCode' => (
     is  => 'rw',
-    isa => 'CountryCode',
+    isa => 'Business::UPS::Tracking::Type::CountryCode',
     documentation   => 'Shipment origin country code',
 );
 has 'CustomerContext' => (
@@ -168,13 +168,13 @@ has 'ShipmentIdentificationNumber' => (
 );
 has 'PickupDateRangeBegin' => (
     is     => 'rw',
-    isa    => 'DateStr',
+    isa    => 'Business::UPS::Tracking::Type::DateStr',
     coerce => 1,
     documentation   => 'Shipment pickup date range begin',
 );
 has 'PickupDateRangeEnd' => (
     is     => 'rw',
-    isa    => 'DateStr',
+    isa    => 'Business::UPS::Tracking::Type::DateStr',
     coerce => 1,
     documentation   => 'Shipment pickup date range end',
 );

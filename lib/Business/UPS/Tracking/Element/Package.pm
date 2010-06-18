@@ -128,14 +128,14 @@ has 'ProductType' => (
 );
 has 'TrackingNumber' => (
     is  => 'ro',
-    isa => 'Maybe[TrackingNumber]',
+    isa => 'Maybe[Business::UPS::Tracking::Type::TrackingNumber]',
     traits  => ['Serializable'],
     documentation   => 'Tracking number',
     lazy_build      => 1,
 );
 has 'RescheduledDelivery' => (
     is      => 'ro',
-    isa     => 'Maybe[Date]',
+    isa     => 'Maybe[Business::UPS::Tracking::Type::Date]',
     traits  => ['Serializable'],
     documentation   => 'Rescheduled delivery date',
     lazy_build      => 1,

@@ -35,9 +35,10 @@ coercions.
 
 =cut
 
-subtype 'XMLDocument' => as class_type('XML::LibXML::Document');
+subtype 'Business::UPS::Tracking::Type::XMLDocument' 
+    => as class_type('XML::LibXML::Document');
 
-coerce 'XMLDocument' 
+coerce 'Business::UPS::Tracking::Type::XMLDocument' 
     => from 'Str' 
     => via {
         my $xml = $_;
@@ -58,10 +59,10 @@ coerce 'XMLDocument'
         return $doc;
     };
     
-subtype 'Date' 
+subtype 'Business::UPS::Tracking::Type::Date' 
     => as class_type('DateTime');
 
-subtype 'DateStr' 
+subtype 'Business::UPS::Tracking::Type::DateStr' 
     => as 'Str' 
     => where {
         m/^ 
@@ -71,13 +72,13 @@ subtype 'DateStr'
         $/x;
     };
 
-coerce 'DateStr' 
-    => from 'Date' 
+coerce 'Business::UPS::Tracking::Type::DateStr' 
+    => from 'Business::UPS::Tracking::Type::Date' 
     => via {
         return $_->format_cldr('yyyyMMdd');
     };
 
-subtype 'TrackingNumber'
+subtype 'Business::UPS::Tracking::Type::TrackingNumber'
     => as 'Str'
     => where { 
         my $trackingnumber = $_;
@@ -107,7 +108,7 @@ subtype 'TrackingNumber'
     }
     => message { "Tracking numbers must start withn '1Z', contain 14 additional characters and end with a valid checksum" };
 
-subtype 'CountryCode'
+subtype 'Business::UPS::Tracking::Type::CountryCode'
     => as 'Str'
     => where { m/^[A-Z]{2}$/ }
     => message { "Must be an uppercase ISO 3166-1 alpha-2 code" };
