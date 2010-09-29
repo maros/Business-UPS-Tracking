@@ -1,5 +1,9 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.07 Wed Sep 29 2010
+    - Add 'no Moose', 'no Moose::Role' and make all classes immutable
+    - Fix pod
+
 1.06 Mon Jun 14 2010
     - Fix broken/changed webservice availability tests
     - Fix metaclass errors with latest Moose version

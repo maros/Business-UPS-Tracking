@@ -132,13 +132,20 @@ Error originating from the wrong usage of a method/accessor/class. Most
 commonly this will be thrown because of a failing type constraint. 
 
 - * method 
-=item * depth 
-=item * evaltext 
-=item * sub_name 
-=item * last_error 
-=item * sub 
-=item * is_require 
-=item * has_args
+
+- * depth 
+
+- * evaltext 
+
+- * sub_name 
+
+- * last_error 
+
+- * sub 
+
+- * is_require 
+
+- * has_args
 
 ## Accessor / method naming
 
