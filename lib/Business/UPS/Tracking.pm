@@ -327,6 +327,7 @@ sub request_run {
 }
 
 __PACKAGE__->meta->make_immutable;
+no Moose;
 
 =head1 SUPPORT
 

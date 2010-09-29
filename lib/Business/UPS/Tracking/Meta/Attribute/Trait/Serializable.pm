@@ -16,4 +16,5 @@ has 'serialize' => (
 package Moose::Meta::Attribute::Custom::Trait::Serializable;
 sub register_implementation { 'Business::UPS::Tracking::Meta::Attribute::Trait::Serializable' }
 
+no Moose::Role;
 1;

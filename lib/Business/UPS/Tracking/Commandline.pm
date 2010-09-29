@@ -132,4 +132,7 @@ sub _build_tracking {
     
     return Business::UPS::Tracking->new(\%params);
 }
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;

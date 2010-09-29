@@ -157,4 +157,5 @@ sub _build_config {
     return;
 }
 
+no Moose::Role;
 1;

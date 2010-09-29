@@ -115,4 +115,5 @@ sub build_referencenumber {
     );
 }
 
+no Moose::Role;
 1;

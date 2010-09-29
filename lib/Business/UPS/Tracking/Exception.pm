@@ -5,6 +5,8 @@ use utf8;
 use 5.0100;
 
 use base qw(Moose::Error::Default);
+use strict;
+use warnings;
 
 sub new {
     my ( $self, %params ) = @_;

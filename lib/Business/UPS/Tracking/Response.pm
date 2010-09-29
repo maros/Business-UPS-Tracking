@@ -173,5 +173,5 @@ sub _build_CustomerContext {
 #}
 
 __PACKAGE__->meta->make_immutable;
-
+no Moose;
 1;

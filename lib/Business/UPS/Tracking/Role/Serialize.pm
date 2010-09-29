@@ -127,5 +127,5 @@ sub _serialize_value {
     }   
 }
 
-
+no Moose::Role;
 1;
