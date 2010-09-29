@@ -160,12 +160,19 @@ commonly this will be thrown because of a failing type constraint.
 =over
 
 =item * method 
+
 =item * depth 
+
 =item * evaltext 
+
 =item * sub_name 
+
 =item * last_error 
+
 =item * sub 
+
 =item * is_require 
+
 =item * has_args
 
 =back
