@@ -7,6 +7,7 @@ use 5.0100;
 use strict;
 use warnings;
 
+use Business::UPS::Tracking::Exception;
 use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking;
 use MooseX::Getopt::OptionTypeMap;
