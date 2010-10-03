@@ -19,7 +19,7 @@ requires        'DateTime'              => '0.44';
 requires        'Exception::Class'      => 0;
 requires        'LWP::UserAgent'        => 0;
 requires        'Text::SimpleTable'     => 0;
-requires        'MooseX::Getopt'        => 0;
+requires        'MooseX::Getopt'        => '0.30';
 requires        'Path::Class'           => 0;
 requires        'Encode'                => 0;
 unless (can_use('Crypt::SSLeay') || can_use('IO::Socket::SSL')) {
