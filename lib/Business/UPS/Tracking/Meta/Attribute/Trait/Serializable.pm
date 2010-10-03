@@ -7,6 +7,8 @@ use 5.0100;
 use Moose::Role;
 use strict; # Make cpants happy
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 has 'serialize' => (
     is          => 'rw',
     isa         => 'CodeRef',

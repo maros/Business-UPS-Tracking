@@ -8,6 +8,8 @@ use base qw(Moose::Error::Default);
 use strict;
 use warnings;
 
+our $VERSION = $Business::UPS::Tracking::VERISON;
+
 sub new {
     my ( $self, %params ) = @_;
     
@@ -52,7 +54,7 @@ use Exception::Class(
         isa           => 'Business::UPS::Tracking::X',    
         description   => 'Class error',
         fields        => [qw(method depth evaltext sub_name last_error sub is_require has_args)],
-    },    
+    },
 );
 
 1;
