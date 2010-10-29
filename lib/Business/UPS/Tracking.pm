@@ -240,11 +240,11 @@ Defaults to C<~/.ups_tracking>
 Example configuration file:
 
  <?xml version="1.0"?>
- <UPS_tracing_webservice_config>
+ <UPS_tracking_webservice_config>
     <AccessLicenseNumber>1CFFED5A5E91B17</AccessLicenseNumber>
     <UserId>myupsuser</UserId>
     <Password>secret</Password>
- </UPS_tracing_webservice_config>
+ </UPS_tracking_webservice_config>
 
 =head2 retry_http
 
