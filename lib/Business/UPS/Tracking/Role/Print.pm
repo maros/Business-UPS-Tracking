@@ -1,11 +1,10 @@
 # ============================================================================
-package Business::UPS::Tracking::Role::Serialize;
+package Business::UPS::Tracking::Role::Print;
 # ============================================================================
 use utf8;
 use 5.0100;
 
 use Moose::Role;
-use strict; # Make cpants happy
 
 use Text::SimpleTable;
 
@@ -22,23 +21,23 @@ object.
 
 =head1 METHODS
 
-=head3 serialize
+=head3 printall
 
- $tale = $self->serialize($tale);
+ $tale = $self->printall($tale);
  say $tale->draw();
 
 Serialize an object into a table.
 
 =cut
 
-sub serialize {
+sub printall {
     my ($self,$table) = @_;
     
     $table ||= Text::SimpleTable->new(27,44);
     
     foreach my $attribute ($self->meta->get_all_attributes) {
         next 
-            unless $attribute->does('Serializable');
+            unless $attribute->does('Printable');
         
         my $value = $attribute->get_value($self);
         
@@ -49,13 +48,11 @@ sub serialize {
             $attribute->documentation() :
             $attribute->name;
         
-        my $type_constraint = $attribute->type_constraint;
+#        if ($attribute->has_printer) {
+#            $value = $attribute->printer->($self);
+#        }
         
-        if ($attribute->has_serialize) {
-            $value = $attribute->serialize->($self);
-        }
-        
-        $self->_serialize_value(
+        $self->_print_value(
             table   => $table,
             value   => $value,
             name    => $name,
@@ -64,7 +61,7 @@ sub serialize {
     return $table;
 }
 
-sub _serialize_value {
+sub _print_value {
     my ($self,%params) = @_;
     
     
@@ -84,7 +81,7 @@ sub _serialize_value {
         when('ARRAY') {
             my $index = 1;
             foreach my $element (@$value) {
-                $self->_serialize_value(
+                $self->_print_value(
                     table   => $table,
                     value   => $element,
                     name    => $name,
@@ -97,10 +94,12 @@ sub _serialize_value {
             # TODO
         }
         when(['CODE','IO','GLOB','FORMAT']) {
-            warn('Cannot serialize $_');
+            warn('Cannot print $_');
         }
         when('DateTime') {
-            if ($value->hour == 0 && $value->minute == 0) {
+            if ($value->hour == 0 
+                && $value->minute == 0 
+                && $value->second == 0) {
                 $table->row($name,$value->ymd('.'));
             } else {
                 $table->row($name,$value->ymd('.').' '.$value->hms(':'));
@@ -109,14 +108,14 @@ sub _serialize_value {
         # Some object 
         default {
             if ($value->can('meta')
-                && $value->meta->does_role('Business::UPS::Tracking::Role::Serialize')
-                && $value->can('serialize')) {
+                && $value->meta->does_role('Business::UPS::Tracking::Role::Print')
+                && $value->can('printall')) {
                 $table->hr();
                 $table->row($name,'');
                 $table->hr();
-                $value->serialize($table);
-            } elsif ($value->can('serialize')) {
-                my $output = $value->serialize;
+                $value->printall($table);
+            } elsif ($value->can('printall')) {
+                my $output = $value->printall;
                 return
                     unless $output;
                 $table->row($name,$output)

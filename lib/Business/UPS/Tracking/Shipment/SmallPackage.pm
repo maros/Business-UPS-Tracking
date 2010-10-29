@@ -38,7 +38,7 @@ List of packages (L<Business::UPS::Tracking::Element::Package>)
 has 'Package' => (
     is      => 'ro',
     isa     => 'ArrayRef[Business::UPS::Tracking::Element::Package]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Package',
     lazy_build      => 1,
 );

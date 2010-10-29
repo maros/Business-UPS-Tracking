@@ -5,7 +5,7 @@ use utf8;
 use 5.0100;
 
 use Moose;
-with qw(Business::UPS::Tracking::Role::Serialize
+with qw(Business::UPS::Tracking::Role::Print
     Business::UPS::Tracking::Role::Builder);
 __PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
@@ -74,69 +74,69 @@ has 'xml' => (
 has 'RerouteAddress' => (
     is    => 'ro',
     isa   => 'Maybe[Business::UPS::Tracking::Element::Address]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Reroute address',
     lazy_build      => 1,
 );
 has 'ReturnToAddress' => (
     is    => 'ro',
     isa   => 'Maybe[Business::UPS::Tracking::Element::Address]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Return address',
     lazy_build      => 1,
 );
 has 'Activity' => (
     is    => 'ro',
     isa   => 'ArrayRef[Business::UPS::Tracking::Element::Activity]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     lazy_build      => 1,
 );
 has 'SignatureRequired' => (
     is    => 'ro',
     isa   => 'Maybe[Str]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Signature required',
     lazy_build      => 1,
 );
 has 'Message' => (
     is    => 'ro',
     isa   => 'ArrayRef[Business::UPS::Tracking::Element::Code]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Message',
     lazy_build      => 1,
 );
 has 'PackageWeight' => (
     is    => 'ro',
     isa   => 'Maybe[Business::UPS::Tracking::Element::Weight]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Weight',
     lazy_build      => 1,
 );
 has 'ReferenceNumber' => (
     is      => 'ro',
     isa     => 'ArrayRef[Business::UPS::Tracking::Element::ReferenceNumber]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Reference number',
     lazy_build      => 1,
 );
 has 'ProductType' => (
     is    => 'ro',
     isa   => 'Maybe[Str]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Product type',
     lazy_build      => 1,
 );
 has 'TrackingNumber' => (
     is  => 'ro',
     isa => 'Maybe[Business::UPS::Tracking::Type::TrackingNumber]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Tracking number',
     lazy_build      => 1,
 );
 has 'RescheduledDelivery' => (
     is      => 'ro',
     isa     => 'Maybe[Business::UPS::Tracking::Type::Date]',
-    traits  => ['Serializable'],
+    traits  => ['Printable'],
     documentation   => 'Rescheduled delivery date',
     lazy_build      => 1,
 );

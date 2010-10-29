@@ -17,5 +17,5 @@ use_ok( 'Business::UPS::Tracking::Element::Package' );
 use_ok( 'Business::UPS::Tracking::Element::Code' );
 use_ok( 'Business::UPS::Tracking::Role::Builder' );
 use_ok( 'Business::UPS::Tracking::Role::Base' );
-use_ok( 'Business::UPS::Tracking::Role::Serialize' );
+use_ok( 'Business::UPS::Tracking::Role::Print' );
 use_ok( 'Business::UPS::Tracking::Commandline' );

@@ -79,7 +79,7 @@ sub serialize {
 
 =head1 METHODS
 
-=head2 serialize 
+=head2 printall 
 
 Returns the serialized object content
 

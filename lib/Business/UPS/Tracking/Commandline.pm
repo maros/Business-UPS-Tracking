@@ -109,7 +109,7 @@ sub execute {
     foreach my $shipment (@{$response->shipment}) {
         say ".============================================================================.";
         say "| Shipment $count                                                                 |";
-        say $shipment->serialize->draw;
+        say $shipment->printall->draw;
         say "";
         if ($self->verbose) {
             say $shipment->xml->toString(1);

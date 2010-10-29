@@ -143,13 +143,13 @@ sub _build_referencenumber {
 
 =head1 METHODS
 
-=head2 serialize 
+=head2 printall 
 
 Returns the serialized object content
 
 =cut
 
-sub serialize {
+sub printall {
     my ($self) = @_;
     return $self->Value;
 }

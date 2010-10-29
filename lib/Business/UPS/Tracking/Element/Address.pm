@@ -99,7 +99,7 @@ sub _build_address {
 
 =head1 METHODS
 
-=head2 serialize 
+=head2 printall 
 
 Serialize address into a string.
 
@@ -109,7 +109,7 @@ Moose meta method
 
 =cut
 
-sub serialize {
+sub printall {
     my ($self) = @_;
     
     my @address;

@@ -5,7 +5,6 @@ use utf8;
 use 5.0100;
 
 use Moose::Role;
-use strict; # Make cpants happy
 #requires('xml');
 
 use Business::UPS::Tracking::Element::Address;
