@@ -6,7 +6,7 @@ use 5.0100;
 
 use Moose;
 with qw(Business::UPS::Tracking::Role::Base);
-__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
+#__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
 use Business::UPS::Tracking::Exception;
 use LWP::UserAgent;

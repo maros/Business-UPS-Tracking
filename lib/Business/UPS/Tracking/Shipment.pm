@@ -5,9 +5,9 @@ use utf8;
 use 5.0100;
 
 use Moose;
-__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 with qw(Business::UPS::Tracking::Role::Print
     Business::UPS::Tracking::Role::Builder);
+#__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
 use Business::UPS::Tracking::Utils;
 
