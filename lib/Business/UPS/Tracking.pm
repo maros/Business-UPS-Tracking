@@ -270,11 +270,11 @@ has 'retry_http' => (
     is          => 'rw',
     isa         => 'Int',
     default     => 0,
-    documentation   => 'Number of retries if HTTP erros occur [Default 0]',
+    documentation   => 'Number of retries if HTTP errors occur [Default 0]',
 );
 has 'url' => (
     is          => 'rw',
-    default     => 'https://wwwcie.ups.com/ups.app/xml/Track',
+    default     => sub { 'https://wwwcie.ups.com/ups.app/xml/Track' },
     documentation   => 'UPS webservice url',
 );
 has '_ua' => (
@@ -289,7 +289,7 @@ sub _build_ua {
     my ($self) = @_;
 
     my $ua = LWP::UserAgent->new(
-        agent       => "__PACKAGE__ $VERSION",
+        agent       => __PACKAGE__ . " ". $VERSION,
         timeout     => 50,
         env_proxy   => 1,
     );

@@ -14,7 +14,7 @@ use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Response;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 

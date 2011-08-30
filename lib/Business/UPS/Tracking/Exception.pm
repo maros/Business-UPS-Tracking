@@ -8,7 +8,7 @@ use base qw(Moose::Error::Default);
 use strict;
 use warnings;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 sub new {
     my ( $self, %params ) = @_;

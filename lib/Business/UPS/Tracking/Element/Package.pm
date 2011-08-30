@@ -12,7 +12,7 @@ __PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 
