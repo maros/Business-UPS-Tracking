@@ -168,6 +168,12 @@ sub Description {
     return 'Unspecified';
 }
 
+sub serialize {
+    my ($self) = @_;
+    
+    return $self->Value;
+}
+
 =head2 meta
 
 Moose meta method
