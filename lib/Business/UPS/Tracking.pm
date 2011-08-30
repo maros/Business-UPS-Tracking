@@ -17,7 +17,7 @@ use version;
 
 our $VERSION = version->new('1.07');
 our $AUTHORITY = 'cpan:MAROS';
-our $CHECKSUM = 1;
+our $CHECKSUM = $ENV{TRACKING_CHECKSUM} // 1 ;
 
 =encoding utf8
 
