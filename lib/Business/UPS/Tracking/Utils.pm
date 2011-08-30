@@ -14,7 +14,7 @@ use MooseX::Getopt::OptionTypeMap;
 use Business::UPS::Tracking::Meta::Attribute::Trait::Printable;
 use Encode;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 

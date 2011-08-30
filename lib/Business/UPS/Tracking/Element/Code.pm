@@ -9,7 +9,7 @@ use Moose;
 
 use Business::UPS::Tracking::Utils;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 

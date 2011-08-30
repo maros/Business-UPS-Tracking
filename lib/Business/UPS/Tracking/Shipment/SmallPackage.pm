@@ -10,7 +10,7 @@ extends 'Business::UPS::Tracking::Shipment';
 
 use Business::UPS::Tracking::Element::Package;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 

@@ -8,7 +8,7 @@ use 5.0100;
 use strict;
 use warnings;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 #sub new {
 #    my ( $self, @args ) = @_;

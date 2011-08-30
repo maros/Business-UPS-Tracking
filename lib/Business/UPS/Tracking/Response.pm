@@ -14,7 +14,7 @@ use Business::UPS::Tracking::Shipment::SmallPackage;
 use XML::LibXML;
 use DateTime;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 

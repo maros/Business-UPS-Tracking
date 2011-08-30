@@ -12,7 +12,7 @@ use Business::UPS::Tracking::Element::Weight;
 use Business::UPS::Tracking::Element::ReferenceNumber;
 use Business::UPS::Tracking::Element::Code;
 
-our $VERSION = $Business::UPS::Tracking::VERISON;
+our $VERSION = $Business::UPS::Tracking::VERSION;
 
 =encoding utf8
 
