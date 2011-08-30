@@ -106,21 +106,17 @@ Basic exception class. All other exception classes inherit from this class.
 
 HTTP error. The object provides additional parameters:
 
-- * http_response : [HTTP::Response](http://search.cpan.org/perldoc?HTTP::Response) object
-
-- * request : [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object
+- http_response : [HTTP::Response](http://search.cpan.org/perldoc?HTTP::Response) object
+- request : [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object
 
 ### Business::UPS::Tracking::X::UPS
 
 UPS error message.The object provides additional parameters:
 
-- * code : UPS error code
-
-- * severity : Error severity 'hard' or 'soft'
-
-- * context : [XML::LibXML::Node](http://search.cpan.org/perldoc?XML::LibXML::Node) object containing the whole error response.
-
-- * request : [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object
+- code : UPS error code
+- severity : Error severity 'hard' or 'soft'
+- context : [XML::LibXML::Node](http://search.cpan.org/perldoc?XML::LibXML::Node) object containing the whole error response.
+- request : [Business::UPS::Tracking::Request](http://search.cpan.org/perldoc?Business::UPS::Tracking::Request) object
 
 ### Business::UPS::Tracking::X::XML
 
@@ -131,21 +127,14 @@ XML parser or schema error.
 Error originating from the wrong usage of a method/accessor/class. Most
 commonly this will be thrown because of a failing type constraint. 
 
-- * method 
-
-- * depth 
-
-- * evaltext 
-
-- * sub_name 
-
-- * last_error 
-
-- * sub 
-
-- * is_require 
-
-- * has_args
+- method 
+- depth 
+- evaltext 
+- sub_name 
+- last_error 
+- sub 
+- is_require 
+- has_args
 
 ## Accessor / method naming
 
@@ -157,7 +146,7 @@ functions.
 ## UPS license
 
 In order to use this module you need to obtain a "Tracking WebService" 
-license key. See <http://www.ups.com/e_comm_access/gettools_index> for more
+license key. See [http://www.ups.com/e_comm_access/gettools_index](http://www.ups.com/e_comm_access/gettools_index) for more
 information.
 
 # METHODS
@@ -209,11 +198,11 @@ Defaults to `~/.ups_tracking`
 Example configuration file:
 
  <?xml version="1.0"?>
- <UPS_tracing_webservice_config>
+ <UPS_tracking_webservice_config>
     <AccessLicenseNumber>1CFFED5A5E91B17</AccessLicenseNumber>
     <UserId>myupsuser</UserId>
     <Password>secret</Password>
- </UPS_tracing_webservice_config>
+ </UPS_tracking_webservice_config>
 
 ## retry_http
 
@@ -237,7 +226,7 @@ Automatically generated
 
 Please report any bugs or feature requests to 
 `bug-buisness-ups-tracking@rt.cpan.org`, or through the web interface at
-<http://rt.cpan.org/Public/Bug/Report.html?Queue=Business::UPS::Tracking>.  
+[http://rt.cpan.org/Public/Bug/Report.html?Queue=Business::UPS::Tracking](http://rt.cpan.org/Public/Bug/Report.html?Queue=Business::UPS::Tracking).  
 I will be notified, and then you'll automatically be notified of progress on 
 your report as I make changes.
 
@@ -250,8 +239,8 @@ your report as I make changes.
 
 # ACKNOWLEDGEMENTS 
 
-This module was written for Revdev <http://www.revdev.at>, a nice litte 
-software company I run with Koki and Domm (<http://search.cpan.org/~domm/>).
+This module was written for Revdev [http://www.revdev.at](http://www.revdev.at), a nice litte 
+software company I run with Koki and Domm ([http://search.cpan.org/~domm/](http://search.cpan.org/~domm/)).
 
 
 
@@ -268,7 +257,7 @@ this module.
 # SEE ALSO
 
 Download the UPS "OnLine® Tools Tracking Developer Guide" and get a
-developer key at <http://www.ups.com/e_comm_access/gettools_index?loc=en_US>. 
+developer key at [http://www.ups.com/e_comm_access/gettools_index?loc=en_US](http://www.ups.com/e_comm_access/gettools_index?loc=en_US). 
 Please check the "Developer Guide" for more detailed documentation on the
 various fields.
 
