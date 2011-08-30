@@ -53,7 +53,7 @@ SKIP:{
     is($shipment->ReferenceNumber->Description,'Unspecified','Reference number is ok');
     is($shipment->ShipmentIdentificationNumber,'1Z12345E0291980793','Shipment identification number is ok');
     isa_ok($shipment->PickupDate,'DateTime');
-    is($shipment->PickupDate->ymd('.'),'1999.06.08','PickupDate is ok');
+    is($shipment->PickupDate->ymd('.'),'2010.06.08','PickupDate is ok');
     is($shipment->ScheduledDelivery,undef,'ScheduledDelivery is not set');
     isa_ok($shipment->Package,'ARRAY');
     my $package = $shipment->Package->[0];
@@ -84,5 +84,5 @@ SKIP:{
     is($activity1->StatusType->Description,'DELIVERED','Activity 1 status type description is ok');
     is($activity1->StatusCode,'KM','Activity 1 status code description is ok');
     isa_ok($activity1->DateTime,'DateTime');
-    is($activity1->DateTime->format_cldr('yyyy.MM.dd HH:mm:ss'),'1999.06.10 12:00:00','Activity 1 datetime is ok');
+    is($activity1->DateTime->format_cldr('yyyy.MM.dd HH:mm:ss'),'2010.06.10 12:00:00','Activity 1 datetime is ok');
 }
