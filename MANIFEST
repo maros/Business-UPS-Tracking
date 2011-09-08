@@ -22,11 +22,13 @@ lib/Business/UPS/Tracking/Element/Package.pm
 lib/Business/UPS/Tracking/Element/ReferenceNumber.pm
 lib/Business/UPS/Tracking/Element/Weight.pm
 lib/Business/UPS/Tracking/Exception.pm
+lib/Business/UPS/Tracking/Meta/Attribute/Trait/Printable.pm
 lib/Business/UPS/Tracking/Meta/Attribute/Trait/Serializable.pm
 lib/Business/UPS/Tracking/Request.pm
 lib/Business/UPS/Tracking/Response.pm
 lib/Business/UPS/Tracking/Role/Base.pm
 lib/Business/UPS/Tracking/Role/Builder.pm
+lib/Business/UPS/Tracking/Role/Print.pm
 lib/Business/UPS/Tracking/Role/Serialize.pm
 lib/Business/UPS/Tracking/Shipment.pm
 lib/Business/UPS/Tracking/Shipment/Freight.pm
@@ -36,6 +38,8 @@ LICENSE
 Makefile.PL
 MANIFEST			This list of files
 META.yml
+MYMETA.json
+MYMETA.yml
 README
 README.mkdn
 t/01_load.t
