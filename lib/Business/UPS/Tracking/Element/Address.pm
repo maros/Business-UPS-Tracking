@@ -5,7 +5,7 @@ use utf8;
 use 5.0100;
 
 use Moose;
-#__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
+__PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
 use Business::UPS::Tracking::Utils;
 

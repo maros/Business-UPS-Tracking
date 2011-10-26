@@ -51,7 +51,6 @@ SKIP:{
 $Business::UPS::Tracking::CHECKSUM = 1;
 
 {
-    local $TODO = 'Need to fix moose exception handling';
     eval {
         my $tracking = &tracking;
         my $request = Business::UPS::Tracking::Request->new( 

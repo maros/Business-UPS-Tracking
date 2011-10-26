@@ -4,38 +4,11 @@ package Business::UPS::Tracking::Exception;
 use utf8;
 use 5.0100;
 
-#use base qw(Moose::Error::Default);
+use base qw(Moose::Error::Default);
 use strict;
 use warnings;
 
 our $VERSION = $Business::UPS::Tracking::VERSION;
-
-#sub new {
-#    my ( $self, @args ) = @_;
-#    
-#    $self->create_error_exception(@args)->throw;
-#}
-#
-#sub create_error_exception {
-#    my ( $self, %params ) = @_;
-#    
-#    my $exception = Business::UPS::Tracking::X::CLASS->new( 
-#        error       => $params{message},
-#        method      => $params{method},
-#        depth       => $params{depth},
-#        evaltext    => $params{evaltext},
-#        sub_name    => $params{sub_name},
-#        last_error  => $params{last_error},
-#        sub         => $params{sub},
-#        is_require  => $params{is_require},
-#        has_args    => $params{has_args},
-#    );
-#    $exception->{line} = $params{line};
-#    $exception->{package} = $params{pack};
-#    $exception->{file} = $params{file};
-#    
-#    return $exception;
-#}
 
 use Exception::Class( 
     'Business::UPS::Tracking::X'    => {
@@ -62,5 +35,34 @@ use Exception::Class(
         fields        => [qw(method depth evaltext sub_name last_error sub is_require has_args)],
     },
 );
+
+sub new {
+    my ( $self, @args ) = @_;
+    
+    $self->create_error_exception(@args)->throw;
+}
+
+sub create_error_exception {
+    my ( $self, %params ) = @_;
+    
+    my $exception = Business::UPS::Tracking::X::CLASS->new( 
+        error       => $params{message},
+        method      => $params{method},
+        depth       => $params{depth},
+        evaltext    => $params{evaltext},
+        sub_name    => $params{sub_name},
+        last_error  => $params{last_error},
+        sub         => $params{sub},
+        is_require  => $params{is_require},
+        has_args    => $params{has_args},
+    );
+    $exception->{line} = $params{line};
+    $exception->{package} = $params{pack};
+    $exception->{file} = $params{file};
+    
+    return $exception;
+}
+
+
 
 1;
