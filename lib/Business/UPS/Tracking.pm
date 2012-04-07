@@ -336,29 +336,6 @@ L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Business::UPS::Tracking>.
 I will be notified, and then you'll automatically be notified of progress on 
 your report as I make changes.
 
-=head1 AUTHOR
-
-    Maroš Kollár
-    CPAN ID: MAROS
-    maros [at] k-1.com
-    http://www.k-1.com
-
-=head1 ACKNOWLEDGEMENTS 
-
-This module was written for Revdev L<http://www.revdev.at>, a nice litte 
-software company I run with Koki and Domm (L<http://search.cpan.org/~domm/>).
-
-
-=head1 COPYRIGHT
-
-Business::UPS::Tracking is Copyright (c) 2009 Maroš Kollár.
-
-This program is free software; you can redistribute it and/or modify it under 
-the same terms as Perl itself.
-
-The full text of the license can be found in the LICENSE file included with 
-this module.
-
 =head1 SEE ALSO
 
 Download the UPS "OnLine® Tools Tracking Developer Guide" and get a
@@ -368,6 +345,24 @@ various fields.
 
 The L<WebService::UPS::TrackRequest> provides an alternative simpler 
 implementation.
+
+=head1 AUTHOR
+
+    Maroš Kollár
+    CPAN ID: MAROS
+    maros [at] k-1.com
+    
+    http://www.k-1.com
+
+=head1 COPYRIGHT
+
+Business::UPS::Tracking is Copyright (c) 2012 Maroš Kollár 
+- L<http://www.k-1.com>
+
+=head1 LICENCE
+
+This library is free software, you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
 
