@@ -1,5 +1,8 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.09 Sat Apr 07 2012
+    - Maintenance release
+
 1.08 Thu Sep 08 2011
     - Fix typos
     - Update docs
