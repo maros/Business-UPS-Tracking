@@ -8,11 +8,9 @@ inc/Module/Install/Fetch.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/ReadmeFromPod.pm
-inc/Module/Install/ReadmeMarkdownFromPod.pm
 inc/Module/Install/Scripts.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Pod/Markdown.pm
 lib/Business/UPS/Tracking.pm
 lib/Business/UPS/Tracking/Commandline.pm
 lib/Business/UPS/Tracking/Element/Activity.pm
@@ -41,7 +39,6 @@ META.yml
 MYMETA.json
 MYMETA.yml
 README
-README.mkdn
 t/01_load.t
 t/02_basic.t
 t/03_simplerequest.t

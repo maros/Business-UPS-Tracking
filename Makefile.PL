@@ -9,7 +9,6 @@ my $from = 'lib/Business/UPS/Tracking.pm';
 name            'Business-UPS-Tracking';
 all_from        $from;
 readme_from     $from;
-readme_markdown_from $from;
 
 perl_version    '5.010';
 
@@ -32,7 +31,6 @@ build_requires  'Test::NoWarnings'      => 0;
 author_requires 'Test::Pod'             => '1.14';
 author_requires 'Test::Pod::Coverage'   => '1.04';
 author_requires 'Test::Perl::Critic'    => 0;
-author_requires 'Module::Install::ReadmeMarkdownFromPod'=> 0;
 author_requires 'Module::Install::ReadmeFromPod'        => 0;
 
 repository 'git://github.com/maros/Business-UPS-Tracking.git';
