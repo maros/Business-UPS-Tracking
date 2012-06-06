@@ -9,7 +9,7 @@ use Moose::Role;
 our $VERSION = $Business::UPS::Tracking::VERSION;
 
 package Moose::Meta::Attribute::Custom::Trait::Printable;
-sub register_implementation { 'Business::UPS::Tracking::Meta::Attribute::Trait::Printable' }
+sub register_implementation { return 'Business::UPS::Tracking::Meta::Attribute::Trait::Printable' }
 
 no Moose::Role;
 1;

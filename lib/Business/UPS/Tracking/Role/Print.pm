@@ -123,7 +123,8 @@ sub _print_value {
                 $table->row($name,$value);
             }
         }
-    }   
+    } 
+    return;  
 }
 
 no Moose::Role;

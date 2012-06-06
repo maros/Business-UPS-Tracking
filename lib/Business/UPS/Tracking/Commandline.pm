@@ -113,8 +113,9 @@ sub execute {
             say $shipment->xml->toString(1);
         }
         $count ++;
-        
     }
+    
+    return;
 }
 
 sub _build_tracking {

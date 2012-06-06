@@ -212,7 +212,8 @@ Returns the shipment type. Either 'Freight' or 'Small Package'
 =cut
 
 sub ShipmentType {
-    Business::UPS::Tracking::X->throw("__PACKAGE__ is an abstract class")
+    Business::UPS::Tracking::X->throw("__PACKAGE__ is an abstract class");
+    return;
 }
 
 =head2 meta

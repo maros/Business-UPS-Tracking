@@ -145,6 +145,8 @@ sub BUILD {
     }
 
     $self->shipment($shipment_return);
+    
+    return;
 }
 
 sub _build_CustomerContext {

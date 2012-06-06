@@ -39,7 +39,7 @@ use Exception::Class(
 sub new {
     my ( $self, @args ) = @_;
     
-    $self->create_error_exception(@args)->throw;
+    return $self->create_error_exception(@args)->throw;
 }
 
 sub create_error_exception {

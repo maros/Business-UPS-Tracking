@@ -74,7 +74,7 @@ sub _build_weight {
 sub serialize {
     my ($self) = @_;
     
-    $self->printall;
+    return $self->printall;
 }
 
 =head1 METHODS
