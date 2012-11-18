@@ -4,9 +4,9 @@ package Business::UPS::Tracking::Exception;
 use utf8;
 use 5.0100;
 
-use base qw(Moose::Error::Default);
 use strict;
 use warnings;
+use parent qw(Moose::Error::Default);
 
 our $VERSION = $Business::UPS::Tracking::VERSION;
 
