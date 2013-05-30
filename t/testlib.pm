@@ -3,6 +3,7 @@ package testlib;
 use strict;
 use warnings;
 use 5.010;
+no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Business::UPS::Tracking;
 

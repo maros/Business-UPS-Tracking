@@ -3,6 +3,7 @@ package Business::UPS::Tracking;
 # ============================================================================
 use utf8;
 use 5.0100;
+no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Moose;
 with qw(Business::UPS::Tracking::Role::Base);

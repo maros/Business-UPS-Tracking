@@ -3,6 +3,7 @@ package Business::UPS::Tracking::Role::Base;
 # ============================================================================
 use utf8;
 use 5.0100;
+no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Moose::Role;
 
@@ -135,7 +136,7 @@ sub _build_config {
         foreach my $param ($root->childNodes) {
             my $method = $param->nodeName;
             next
-                unless $method ~~ [qw(AccessLicenseNumber UserId Password)];
+                unless grep { $_ eq $method } qw(AccessLicenseNumber UserId Password);
             $params->{$method} = $param->textContent;
             $self->$method($param->textContent); 
         }

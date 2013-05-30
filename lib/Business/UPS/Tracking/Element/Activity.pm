@@ -9,6 +9,8 @@ with qw(Business::UPS::Tracking::Role::Print
     Business::UPS::Tracking::Role::Builder);
 __PACKAGE__->meta->error_class("Business::UPS::Tracking::Exception");
 
+no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
+
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Element::Activity;
 
