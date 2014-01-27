@@ -7,8 +7,6 @@ no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Moose::Role;
 
-our $VERSION = $Business::UPS::Tracking::VERSION;
-
 use Path::Class::File;
 
 =encoding utf8

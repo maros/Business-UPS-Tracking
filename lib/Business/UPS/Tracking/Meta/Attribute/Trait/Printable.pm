@@ -6,8 +6,6 @@ use 5.0100;
 
 use Moose::Role;
 
-our $VERSION = $Business::UPS::Tracking::VERSION;
-
 package Moose::Meta::Attribute::Custom::Trait::Printable;
 sub register_implementation { return 'Business::UPS::Tracking::Meta::Attribute::Trait::Printable' }
 

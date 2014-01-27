@@ -13,7 +13,7 @@ readme_from     $from;
 perl_version    '5.010';
 
 # Specific dependencies
-requires        'Moose'                 => '2.0301';
+requires        'Moose'                 => '2.0400';
 requires        'DateTime'              => '0.44';
 requires        'Exception::Class'      => 0;
 requires        'LWP::UserAgent'        => 0;

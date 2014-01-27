@@ -6,9 +6,6 @@ use 5.0100;
 
 use strict;
 use warnings;
-use parent qw(Moose::Error::Default);
-
-our $VERSION = $Business::UPS::Tracking::VERSION;
 
 use Exception::Class( 
     'Business::UPS::Tracking::X'    => {
