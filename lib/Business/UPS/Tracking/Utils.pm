@@ -7,6 +7,7 @@ use 5.0100;
 use strict;
 use warnings;
 
+use Try::Tiny;
 use Business::UPS::Tracking::Exception;
 use Moose::Util::TypeConstraints;
 use Business::UPS::Tracking;
@@ -46,16 +47,14 @@ coerce 'Business::UPS::Tracking::Type::XMLDocument'
         my $parser = XML::LibXML->new(
             #encoding    => 'iso-8859-15'
         );
-        my $doc = eval {
-            $parser->parse_string($xml);
-        };
-        if (! $doc) {
+        return try {
+            return $parser->parse_string($xml);
+        } catch {
             Business::UPS::Tracking::X::XML->throw(
-                error   => $@ || 'Unknown error parsing xml document',
+                error   => $_ || 'Unknown error parsing xml document',
                 xml     => $xml,
             );
         }
-        return $doc;
     };
     
 subtype 'Business::UPS::Tracking::Type::Date' 
@@ -131,21 +130,18 @@ sub parse_date {
             (?<day>3[01]|[12]\d|0[1-9])
         $/x;
     
-    my $date;
-    $date = eval {
+    return try {
         DateTime->new(
             year    => $+{year},
             month   => $+{month},
             day     => $+{day},
         );
-    };
-    if (! $date || $@) {
+    } catch {
         Business::UPS::Tracking::X::XML->throw(
-            error   => "Invalid date string: $@",
+            error   => "Invalid date string: ".$_,
             xml     => $datestr,
         );
-    }
-    return $date;
+    };
 }
 
 =head3 parse_time
@@ -171,15 +167,14 @@ sub parse_time {
             (?<second>\d\d)
         $/x;
     
-    my $success = eval {
+   try {
         $datetime->set_hour( $+{hour} );
         $datetime->set_minute( $+{minute} );
         $datetime->set_second( $+{second} );
         return 1;
-    };
-    if (! $success || $@) {
+    } catch {
         Business::UPS::Tracking::X::XML->throw(
-            error   => "Invalid time string: $@",
+            error   => "Invalid time string: ".$_,
             xml     => $timestr,
         );
     }

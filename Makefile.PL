@@ -25,6 +25,7 @@ unless (can_use('Crypt::SSLeay') || can_use('IO::Socket::SSL')) {
     requires    'Crypt::SSLeay'         => 0;
 }
 requires        'XML::LibXML'           => 0;
+requires        'Try::Tiny'             => 0;
 
 build_requires  'Test::NoWarnings'      => 0;
 

@@ -9,6 +9,7 @@ use Moose;
 use DateTime;
 use XML::LibXML;
 use Moose::Util::TypeConstraints;
+use Try::Tiny;
 
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Response;
@@ -297,15 +298,13 @@ sub run {
         );
         # Success
         if ( $response->is_success ) {
-            my $return = eval {
+            return try {
                 return Business::UPS::Tracking::Response->new(
                     request => $self,
                     xml     => $response->content,
                 );
-            };
-            unless (defined $return 
-                && ref $return eq 'Business::UPS::Tracking::Response') {
-                my $e = $@;
+            } catch {
+                my $e = $_;
                 if (defined $e 
                     && ref $e 
                     && $e->isa('Business::UPS::Tracking::X')) {
@@ -313,8 +312,6 @@ sub run {
                 } else {
                     Business::UPS::Tracking::X->throw($e || 'Unknown error');
                 }
-            } else {
-                return $return;
             }
         }
         # Failed but try again
