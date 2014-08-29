@@ -3,9 +3,9 @@ package Business::UPS::Tracking::Response;
 # ============================================================================
 use utf8;
 use 5.0100;
-no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Moose;
+no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Shipment::Freight;
