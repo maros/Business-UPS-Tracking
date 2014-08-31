@@ -84,5 +84,5 @@ SKIP:{
     is($activity1->StatusType->Description,'DELIVERED','Activity 1 status type description is ok');
     is($activity1->StatusCode,'KM','Activity 1 status code description is ok');
     isa_ok($activity1->DateTime,'DateTime');
-    is($activity1->DateTime->format_cldr('yyyy.MM.dd HH:mm:ss'),'2010.06.10 12:00:00','Activity 1 datetime is ok');
+    is($activity1->DateTime->format_cldr('yyyy.MM.dd HH:mm:ss'),'2010.06.10 00:00:00','Activity 1 datetime is ok');
 }

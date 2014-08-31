@@ -43,6 +43,6 @@ SKIP:{
     is($shipment2->Service->Code,'13','ServiceCode is ok');
     is($shipment2->Service->Description,'NEXT DAY AIR SAVER','ServiceDescription is ok');
     is(scalar @$activity,6,'Has six activities');
-    is($package3->CurrentStatus,'Pickup','CurrentStatus is ok');
+    is($package3->CurrentStatus,'Delivered','CurrentStatus is ok');
     is($activity->[0]->DateTime->dmy('-'),'12-09-2010','CurrentStatusDateTime is ok');
 }
