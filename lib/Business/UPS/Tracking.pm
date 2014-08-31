@@ -152,11 +152,6 @@ UPS error message.The object provides additional parameters:
 
 XML parser or schema error.
 
-=head3 Business::UPS::Tracking::X::CLASS
-
-Error originating from the wrong usage of a method/accessor/class. Most
-commonly this will be thrown because of a failing type constraint. 
-
 =over
 
 =item * method 

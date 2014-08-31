@@ -26,11 +26,11 @@ use Exception::Class(
         description   => 'Malformed response xml',
         fields        => [qw(xml)]
     },
-    'Business::UPS::Tracking::X::CLASS'  => {
-        isa           => 'Business::UPS::Tracking::X',    
-        description   => 'Class error',
-        fields        => [qw(method depth evaltext sub_name last_error sub is_require has_args)],
-    },
+#    'Business::UPS::Tracking::X::CLASS'  => {
+#        isa           => 'Business::UPS::Tracking::X',    
+#        description   => 'Class error',
+#        fields        => [qw(method depth evaltext sub_name last_error sub is_require has_args)],
+#    },
 );
 
 1;
