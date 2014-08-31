@@ -3,9 +3,10 @@ package Business::UPS::Tracking::Role::Base;
 # ============================================================================
 use utf8;
 use 5.0100;
-no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Moose::Role;
+
+no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Try::Tiny;
 use Path::Class::File;

@@ -5,7 +5,6 @@ use utf8;
 use 5.0100;
 
 use Moose::Role;
-
 no if $] >= 5.017004, warnings => qw(experimental::smartmatch);
 
 use Text::SimpleTable;
