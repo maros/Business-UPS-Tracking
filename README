@@ -116,10 +116,6 @@ DESCRIPTION
    Business::UPS::Tracking::X::XML
     XML parser or schema error.
 
-   Business::UPS::Tracking::X::CLASS
-    Error originating from the wrong usage of a method/accessor/class. Most
-    commonly this will be thrown because of a failing type constraint.
-
     *   method
 
     *   depth

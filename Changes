@@ -1,5 +1,10 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.11 Sun Aug 31 2014
+    - Use new Moose exceptions and Moose > 2.0400
+    - Move no warnings behind use Moose (by scrottie)
+    - Use Try::Tiny to catch exceptions
+
 1.10 Wed Sep 11 2013
     - Maintenance release (M::I, smartmatch, base -> parent, ...)
 
