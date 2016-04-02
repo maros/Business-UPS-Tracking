@@ -152,26 +152,6 @@ UPS error message.The object provides additional parameters:
 
 XML parser or schema error.
 
-=over
-
-=item * method 
-
-=item * depth 
-
-=item * evaltext 
-
-=item * sub_name 
-
-=item * last_error 
-
-=item * sub 
-
-=item * is_require 
-
-=item * has_args
-
-=back
-
 =head2 Accessor / method naming
 
 The naming of the methods and accessors tries to stick close to the names
