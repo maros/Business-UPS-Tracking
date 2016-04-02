@@ -116,22 +116,6 @@ DESCRIPTION
    Business::UPS::Tracking::X::XML
     XML parser or schema error.
 
-    *   method
-
-    *   depth
-
-    *   evaltext
-
-    *   sub_name
-
-    *   last_error
-
-    *   sub
-
-    *   is_require
-
-    *   has_args
-
   Accessor / method naming
     The naming of the methods and accessors tries to stick close to the
     names used by the UPS webservice. All accessors containg uppercase

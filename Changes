@@ -1,5 +1,8 @@
 Revision history fon Perl module Business::UPS::Tracking
 
+1.12 Sat Apr 2 2016
+    - Fix typos in method names
+
 1.11 Sun Aug 31 2014
     - Use new Moose exceptions and Moose > 2.0400
     - Move no warnings behind use Moose (by scrottie)
