@@ -27,7 +27,7 @@ B<ups_tracking> [options]
     --ShipperNumber                     Shipper UPS customernumber
     --ShipmentIdentificationNumber      Shipment identification number
     --ReferenceNumber                   Shipment reference number
-    --ShmipmentType                     Shipment type ["01" - Small shipment (Default), "02" - Freight ]
+    --ShipmentType                      Shipment type ["01" - Small shipment (Default), "02" - Freight ]
     --PickupDateRangeBegin              Shipment pickup date range begin
     --PickupDateRangeEnd                Shipment pickup date range end
     --DestinationPostalCode             Shipment destination postal code

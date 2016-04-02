@@ -99,7 +99,7 @@ object. Only in combination with L<ReferenceNumber>.
 Shipment pickup range. Either a string formated 'YYYYMMDD' or a L<DateTime>
 object. Only in combination with L<ReferenceNumber>.
 
-=head2 ShmipmentType
+=head2 ShipmentType
 
 Type of shipment. '01' small packackage or '02' freight. Only in combination 
 with L<ReferenceNumber>.
@@ -176,7 +176,7 @@ has 'PickupDateRangeEnd' => (
     coerce => 1,
     documentation   => 'Shipment pickup date range end',
 );
-has 'ShmipmentType' => (
+has 'ShipmentType' => (
     is      => 'rw',
     isa     => enum( [ '01', '02' ] ),
     default => '01',
@@ -241,11 +241,11 @@ sub tracking_request {
                 ->appendTextNode( $self->PickupDateRangeEnd );
         }
 
-        if ( $self->ShmipmentType ) {
+        if ( $self->ShipmentType ) {
             my $shipmenttype
                 = $track_request->addNewChild( '', 'ShipmentType' );
             $shipmenttype->addNewChild( '', 'Code' )
-                ->appendTextNode( $self->ShmipmentType );
+                ->appendTextNode( $self->ShipmentType );
         }
     }
     else {
