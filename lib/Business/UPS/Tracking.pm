@@ -14,7 +14,7 @@ use LWP::UserAgent;
 use Business::UPS::Tracking::Utils;
 use Business::UPS::Tracking::Request;
 
-our $VERSION = "1.12";
+our $VERSION = "1.13";
 our $AUTHORITY = 'cpan:MAROS';
 our $CHECKSUM = $ENV{TRACKING_CHECKSUM} // 1 ;
 
