@@ -177,7 +177,7 @@ sub parse_time {
             error   => "Invalid time string: ".$_,
             xml     => $timestr,
         );
-    }
+    };
 
     return $datetime;
 }
